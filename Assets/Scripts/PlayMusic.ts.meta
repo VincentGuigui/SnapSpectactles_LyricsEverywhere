@@ -1,0 +1,50 @@
+- !<AssetImportMetadata/0b9644a5-7c03-4aac-b025-4525f326b305>
+  ImportedAssetIds:
+    TypeScriptAsset: !<reference> 9a687c91-8f67-4702-ace1-97e55ddaad79
+  ImporterName: TypeScriptAssetImporter
+  PrimaryAsset: !<reference> 9a687c91-8f67-4702-ace1-97e55ddaad79
+  PackageType: NotAPackage
+  LegacyPackagePolicy: ~
+  ExtraData:
+    {}
+  AssetDataMap:
+    TypeScriptAsset: !<own> 94ecd6ac-6442-4d51-8e2b-3d377ca17ddc
+  DependentFiles:
+    []
+  ImporterSettings: !<AssetImporterSettings>
+    {}
+  CompressionSettings: !<own> 00000000-0000-0000-0000-000000000000
+- !<TypeScriptAssetData/94ecd6ac-6442-4d51-8e2b-3d377ca17ddc>
+  SvgIcon: ""
+  SetupScript:
+    code: ""
+  Description: ""
+  VersionMajor: 0
+  VersionMinor: 0
+  VersionPatch: 0
+  ComponentUid: 4e76dfea-d47e-49c3-813a-c0dc1fe2a652
+  ExportUid: 00000000-0000-0000-0000-000000000000
+  PackagePolicy: CanBeUnpacked
+  ScriptInputsHidden:
+    _audioTrackAsset: false
+    coverImage: false
+    coverTitle: false
+  ScriptTypesHidden:
+    {}
+  ReadMe: !<reference> 00000000-0000-0000-0000-000000000000
+  DeclarationFile: !<reference> 00000000-0000-0000-0000-000000000000
+  Tags:
+    []
+  Attachments:
+    []
+  DefaultScriptInputs:
+    - coverImage: !<reference.Image> 00000000-0000-0000-0000-000000000000
+      coverTitle: !<reference.Text> 00000000-0000-0000-0000-000000000000
+      _audioTrackAsset: !<reference.AudioTrackAsset> 00000000-0000-0000-0000-000000000000
+  ScriptTypes:
+    -
+      {}
+  InputLines:
+    - // @input Component.Image coverImage
+    - // @input Component.Text coverTitle
+    - // @input Asset.AudioTrackAsset _audioTrackAsset

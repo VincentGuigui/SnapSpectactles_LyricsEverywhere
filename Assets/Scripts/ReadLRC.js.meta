@@ -1,0 +1,54 @@
+- !<AssetImportMetadata/ca2c6fc5-e3c7-4897-8563-e3a961202c8e>
+  ImportedAssetIds:
+    JavaScriptAsset: !<reference> bb8226d2-c17b-4220-aa32-cf41ac7ba71f
+  ImporterName: JavaScriptAssetImporter
+  PrimaryAsset: !<reference> bb8226d2-c17b-4220-aa32-cf41ac7ba71f
+  PackageType: NotAPackage
+  LegacyPackagePolicy: ~
+  ExtraData:
+    USE_EASY_LENS: ""
+  AssetDataMap:
+    JavaScriptAsset: !<own> 0128396c-bbd8-4133-a1ef-3b1e31ef27a2
+  DependentFiles:
+    []
+  ImporterSettings: !<AssetImporterSettings>
+    {}
+  CompressionSettings: !<own> 00000000-0000-0000-0000-000000000000
+- !<ScriptAssetData/0128396c-bbd8-4133-a1ef-3b1e31ef27a2>
+  SvgIcon: ""
+  SetupScript:
+    code: ""
+  Description: ""
+  VersionMajor: 0
+  VersionMinor: 0
+  VersionPatch: 0
+  ComponentUid: 0d3c2833-c073-42bc-9d7b-bb97a27f4b7a
+  ExportUid: 00000000-0000-0000-0000-000000000000
+  PackagePolicy: CanBeUnpacked
+  ScriptInputsHidden:
+    coverImage0: false
+    coverTitle: false
+    lyricsText: false
+    nextButton: false
+    playPauseButton: false
+    prevButton: false
+    touchEvents: false
+  ScriptTypesHidden:
+    {}
+  ReadMe: !<reference> 00000000-0000-0000-0000-000000000000
+  DeclarationFile: !<reference> 00000000-0000-0000-0000-000000000000
+  Tags:
+    []
+  Attachments:
+    []
+  DefaultScriptInputs:
+    - coverImage0: !<reference.ScriptComponent> 00000000-0000-0000-0000-000000000000
+      prevButton: !<reference.ScriptComponent> 00000000-0000-0000-0000-000000000000
+      playPauseButton: !<reference.ScriptComponent> 00000000-0000-0000-0000-000000000000
+      nextButton: !<reference.ScriptComponent> 00000000-0000-0000-0000-000000000000
+      coverTitle: !<reference.ScriptComponent> 00000000-0000-0000-0000-000000000000
+      lyricsText: !<reference.ScriptComponent> 00000000-0000-0000-0000-000000000000
+      touchEvents: !<reference.ScriptComponent> 00000000-0000-0000-0000-000000000000
+  ScriptTypes:
+    -
+      {}
