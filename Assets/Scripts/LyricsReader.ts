@@ -84,25 +84,35 @@ export class LyricsReader extends BaseScriptComponent {
     update() {
         if (this._state == "stopped") return
 
-        if (this.Head.enabled && !this._headAlreadyVisible) {
+        var headIsVisible = this.Head.isEnabledInHierarchy
+        if (!headIsVisible) {
+            this._headAlreadyVisible = false
+        }
+        if (headIsVisible && !this._headAlreadyVisible) {
             this._headAlreadyVisible = true
             var split = Math.random() > 0.5
             this.Singing.enabled = split
             this.Thinking.enabled = !split
         }
-        if (!this.HeadBinding.isEnabledInHierarchy) {
-            this._headAlreadyVisible = false
-        }
-        this.Hand.enabled = !this.HeadBinding.isEnabledInHierarchy;
+
+        // display priority 
+        this.Hand.enabled = !headIsVisible;
 
         if (this._state == "playing") {
-            this._currentPosition = getTime() - this._startTime
-            for (var l = 0; l < this._lyrics.timed.line.length; l++) {
-                var line = this._lyrics.timed.line[l]
-                if (line.begin < this._currentPosition && this._currentPosition < line.end) {
-                    this.setAllTexts(undefined, line.content)
-                    return;
-                }
+            this.displayLyrics()
+        }
+        else {
+            this.setAllTexts(undefined, "")
+        }
+    }
+
+    displayLyrics() {
+        this._currentPosition = getTime() - this._startTime
+        for (var l = 0; l < this._lyrics.timed.line.length; l++) {
+            var line = this._lyrics.timed.line[l]
+            if (line.begin < this._currentPosition && this._currentPosition < line.end) {
+                this.setAllTexts(undefined, line.content)
+                return;
             }
         }
     }
@@ -115,6 +125,7 @@ export class LyricsReader extends BaseScriptComponent {
     }
 
     stop() {
+        this.setAllTexts(undefined, "")
         this._state = "stopped"
         this._startTime = 0
         this.Singing.enabled = false

@@ -67,18 +67,8 @@ export class PlayMusic extends BaseScriptComponent {
 
   onStart() {
     this._audioComponent = this.getSceneObject().createComponent("Component.AudioComponent") as AudioComponent
+    this._audioComponent.setOnFinish((audioComponent)=>{this.stop()})
     this._audioComponent.playbackMode = Audio.PlaybackMode.LowLatency
-
-    // This script assumes that a ToggleButton (and Interactable + Collider) component have already been instantiated on the SceneObject.
-    var tg = ToggleButton.getTypeName()
-    let toggleButton = this.sceneObject.getComponent(tg);
-
-    let on_stateChangedCallback = (_state: boolean) => {
-
-      this.updateCoverFlow();
-
-      //toggleButton.on_stateChanged.add(on_stateChangedCallback);
-    };
   }
 
   updateCoverFlow() {
