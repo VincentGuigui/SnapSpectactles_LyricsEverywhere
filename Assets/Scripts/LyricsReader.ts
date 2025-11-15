@@ -1,4 +1,7 @@
 import { LyricsData } from './LyricsData'
+import { LyricsSubscriber } from './LyricsSubscriber'
+import { Song } from './Song'
+import { findComponentInChildren } from 'SpectaclesInteractionKit.lspkg/Utils/SceneObjectUtils'
 
 @component
 export class LyricsReader extends BaseScriptComponent {
@@ -21,7 +24,9 @@ export class LyricsReader extends BaseScriptComponent {
     @input
     private Sky: SceneObject = undefined
 
-    _lyricsLocations: SceneObject[]
+    @input
+    lyricsLocations: SceneObject[]
+    _lyricsSubscribers: LyricsSubscriber[] = []
     _lyrics: LyricsData = undefined
     _startTime: number = 0
     _currentPosition: number = 0
@@ -29,47 +34,42 @@ export class LyricsReader extends BaseScriptComponent {
     private _state = "stopped";
 
     onAwake() {
-        this._lyricsLocations = [
-            this.Hand, this.Thinking, this.Singing, this.Floor, this.Wall, this.Signage, this.Sky
-        ]
+        this.registerSubscribers();
         this.textTemplate = this.sceneObject.getComponent("Component.Text")
-        this.setAllTexts(undefined, "Lyrics")
         this.createEvent("UpdateEvent").bind(() => {
             this.update();
         })
     }
 
-    setLyrics(lyricsData: LyricsData) {
-        this._lyrics = lyricsData
-        console.log("LyricsData", lyricsData.userId, lyricsData.timed.line.length)
+    setSong(song: Song) {
+        this._lyrics = song.lyrics
+        console.log("LyricsData", song.title, song.lyrics.timed.line.length, "lines")
     }
 
-    setAllTexts(obj: SceneObject = undefined, newText: string) {
-        if (obj == undefined) {
-            for (var i = 0; i < this._lyricsLocations.length; i++) {
-                this.setAllTexts(this._lyricsLocations[i], newText);
-            }
+    registerSubscribers(parent: SceneObject = undefined) {
+        var children: SceneObject[]
+        if (parent == undefined) {
+            children = this.lyricsLocations;
         } else {
-            this.setText(obj, newText);
-            // Recursively check children
-            for (var i = 0; i < obj.getChildrenCount(); i++) {
-                this.setAllTexts(obj.getChild(i), newText);
+            children = parent.children
+            for (const component of parent.getComponents("ScriptComponent") as ScriptComponent[]) {
+                if (component instanceof LyricsSubscriber) {
+                    this._lyricsSubscribers.push(component as LyricsSubscriber)
+                }
             }
+        }
+        // Recursively check children
+        for (var i = 0; i < children.length; i++) {
+            this.registerSubscribers(children[i]);
         }
     }
 
-    setText(obj: SceneObject, newText: string) {
-        // Check for Text (2D) component
-        var text2D = obj.getComponent("Component.Text") as Text;
-        if (text2D) {
-            text2D.text = newText;
-            text2D.textFill = this.textTemplate.textFill
-        }
-        // Check for Text3D component
-        var text3D = obj.getComponent("Component.Text3D") as Text3D;
-        if (text3D) {
-            text3D.text = newText;
-        }
+    setLyrics(current: number) {
+        this._lyricsSubscribers.forEach(lyricsSubscriber => {
+            if (lyricsSubscriber as LyricsSubscriber) {
+                lyricsSubscriber.setLyrics(this._lyrics, current, this.textTemplate)
+            }
+        });
     }
 
     start() {
@@ -106,19 +106,19 @@ export class LyricsReader extends BaseScriptComponent {
             this.displayLyrics()
         }
         else {
-            this.setAllTexts(undefined, "")
+            this.setLyrics(-1)
         }
     }
 
     displayLyrics() {
         this._currentPosition = getTime() - this._startTime
         if (this._currentPosition < this._lyrics.timed.line[0].begin)
-            this.setAllTexts(undefined, "...")
+            this.setLyrics(-1)
         else {
             for (var l = 0; l < this._lyrics.timed.line.length; l++) {
                 var line = this._lyrics.timed.line[l]
                 if (line.begin < this._currentPosition && this._currentPosition < line.end) {
-                    this.setAllTexts(undefined, line.content)
+                    this.setLyrics(l)
                     return;
                 }
             }
@@ -133,7 +133,7 @@ export class LyricsReader extends BaseScriptComponent {
     }
 
     stop() {
-        this.setAllTexts(undefined, "")
+        this.setLyrics(-1)
         this._state = "stopped"
         this._startTime = 0
         this.Singing.enabled = false

@@ -61,7 +61,7 @@
   InputLines:
     - // @input AssignableType LyricsReader
     - // @input AssignableType_1 SongsObject
-    - // @input float CurrentSong = 1
+    - // @input float CurrentSong = 6
     - // @input Asset.Material PlayMaterial
     - // @input Asset.Material PauseMaterial
     - // @input Component.Image PlayPauseImageButton

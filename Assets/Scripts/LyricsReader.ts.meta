@@ -34,6 +34,7 @@
     Sky: false
     Thinking: false
     Wall: false
+    lyricsLocations: false
   ScriptTypesHidden:
     {}
   ReadMe: !<reference> 00000000-0000-0000-0000-000000000000
@@ -52,6 +53,8 @@
       Wall: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
       Signage: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
       Sky: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      lyricsLocations: !<reference.SceneObject[]>
+        []
   ScriptTypes:
     -
       {}
@@ -64,3 +67,4 @@
     - // @input SceneObject Wall
     - // @input SceneObject Signage
     - // @input SceneObject Sky
+    - "// @input SceneObject[] lyricsLocations"

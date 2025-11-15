@@ -4,7 +4,7 @@ import { Songs } from './Songs';
 import { LyricsReader } from './LyricsReader'
 
 @component
-export class PlayMusic extends BaseScriptComponent {
+export class CoverflowController extends BaseScriptComponent {
 
   @input
   private LyricsReader: LyricsReader
@@ -13,7 +13,7 @@ export class PlayMusic extends BaseScriptComponent {
   private SongsObject: Songs
 
   @input
-  private CurrentSong: number = 1
+  private CurrentSong: number = 6
 
   @input
   private PlayMaterial: Material = undefined
@@ -55,7 +55,7 @@ export class PlayMusic extends BaseScriptComponent {
     var sunshineDanceIndex = 6
     this.coverTitle.text = this.SongsObject.Songs[this.CurrentSong].title
     this.coverImage.mainMaterial = this.SongsObject.Songs[this.CurrentSong].cover
-    this.LyricsReader.setLyrics(this.SongsObject.Songs[sunshineDanceIndex].lyrics)
+    this.LyricsReader.setSong(this.SongsObject.Songs[sunshineDanceIndex])
     if (this._audioComponent !== undefined) {
       var track:AudioTrackAsset = this.SongsObject.Songs[sunshineDanceIndex].track
       this._audioComponent.audioTrack = track as AudioTrackAsset

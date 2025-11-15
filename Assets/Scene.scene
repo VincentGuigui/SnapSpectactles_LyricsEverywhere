@@ -5,6 +5,7 @@
     - !<own> 0005641c-028d-459a-0000-000000014b4d
     - !<own> 41d17d73-ef5d-4e4f-abff-3ceb30b52ae4
     - !<own> 9bad62f0-fd32-4015-94b9-f16ff749d7c9
+    - !<own> c84ad341-7db4-4530-bc55-13e1da8912a9
     - !<own> 2509e12c-d4ef-42f6-bf05-42d1094d6f5e
     - !<own> 561e8f30-7d1e-4278-b70b-d0cb8e2bb508
   layers: !<Layers/267ee9a7-aff2-4f9d-9a49-f71214747d03>
@@ -134,6 +135,103 @@
   DecayType: None
   DecayLimit: false
   DecayRange: 40.000000
+- !<Text/0318fde3-b788-4fa3-b46b-7d8254f9e131>
+  PrefabRemaps:
+    []
+  Name: Text
+  Enabled: true
+  RenderOrder: 1
+  StretchMode: Stretch
+  VerticalAlignment: Center
+  HorizontalAlignment: Center
+  MeshShadowMode: None
+  ShadowColor: {x: 1.000000, y: 1.000000, z: 1.000000, w: 1.000000}
+  ShadowDensity: 1.000000
+  Text: "[00:00.00] Sunshine brightens up my day (00:00.00)"
+  Editable: false
+  ShowEditingPreview: true
+  TouchHandler: !<reference> 00000000-0000-0000-0000-000000000000
+  SizeToFit: false
+  FontSize: 100
+  Font: !<reference> b06a4d49-868a-43b7-ad1e-fb1be384f123
+  LayoutRect:
+    left: -17.000000
+    bottom: 0.000000
+    right: 17.000000
+    top: 0.000000
+  OverflowVertical: Overflow
+  OverflowHorizontal: Wrap
+  Fill: !<TextFill>
+    Mode: Texture
+    Color: {x: 0.000000, y: 0.000000, z: 0.000000, w: 1.000000}
+    Texture: !<reference> f0d0606d-3f03-46e8-8b93-5e36aadd199f
+    ColorTint: {x: 1.000000, y: 1.000000, z: 1.000000, w: 1.000000}
+    TileCount: 2.000000
+    TileZone: Rect
+    TextureStretch: FitWidth
+  BlendMode: PremultipliedAlphaAuto
+  Outline: !<OutlineSettings>
+    Enabled: false
+    Fill: !<TextFill>
+      Mode: Solid
+      Color: {x: 0.000000, y: 0.000000, z: 0.000000, w: 1.000000}
+      Texture: !<reference> 00000000-0000-0000-0000-000000000000
+      ColorTint: {x: 1.000000, y: 1.000000, z: 1.000000, w: 1.000000}
+      TileCount: 5.000000
+      TileZone: Rect
+      TextureStretch: FitWidth
+    Size: 0.250000
+  Dropshadow: !<DropshadowSettings>
+    Enabled: false
+    Fill: !<TextFill>
+      Mode: Solid
+      Color: {x: 0.000000, y: 0.000000, z: 0.000000, w: 1.000000}
+      Texture: !<reference> 00000000-0000-0000-0000-000000000000
+      ColorTint: {x: 1.000000, y: 1.000000, z: 1.000000, w: 1.000000}
+      TileCount: 5.000000
+      TileZone: Rect
+      TextureStretch: FitWidth
+    OffsetX: 0.250000
+    OffsetY: 0.250000
+  Background: !<BackgroundSettings>
+    Enabled: false
+    Fill: !<TextFill>
+      Mode: Solid
+      Color: {x: 1.000000, y: 1.000000, z: 1.000000, w: 1.000000}
+      Texture: !<reference> 00000000-0000-0000-0000-000000000000
+      ColorTint: {x: 1.000000, y: 1.000000, z: 1.000000, w: 1.000000}
+      TileCount: 5.000000
+      TileZone: Rect
+      TextureStretch: FitWidth
+    Margins:
+      left: 0.000000
+      bottom: 0.000000
+      right: 0.000000
+      top: 0.000000
+    CornerRadius: 0.000000
+  AdvancedLayout: !<TextAdvancedLayout>
+    ExtentsTarget: !<reference> 00000000-0000-0000-0000-000000000000
+    LetterSpacing: 0.000000
+    LineSpacing: 1.000000
+    CapitalizationOverride: None
+  DepthTest: false
+  TwoSided: false
+- !<ScriptComponent/03c36660-2287-49e3-ad0f-dedfdabfdb21>
+  PrefabRemaps:
+    []
+  Name: LyricsSubscriber
+  Enabled: true
+  ScriptAsset: !<reference> 413c2595-c8d6-4ea4-acb5-5c673e6c64f3
+  ScriptInputsDefault:
+    lyricsOffset: true
+  ScriptTypesDefault:
+    {}
+  ScriptInputs:
+    "":
+      lyricsOffset: !<float> 0.000000
+  ScriptTypes:
+    "":
+      {}
 - !<SceneObject/0c199c41-b7b7-400d-95de-4d017670319e>
   PrefabRemaps:
     []
@@ -299,6 +397,22 @@
     []
   Components:
     - !<own> 9245e011-4241-4fd8-8c94-4f70e3456203
+- !<ScriptComponent/14730de8-7d74-40ad-8f46-28a69e6e7ffe>
+  PrefabRemaps:
+    []
+  Name: LyricsSubscriber
+  Enabled: true
+  ScriptAsset: !<reference> 413c2595-c8d6-4ea4-acb5-5c673e6c64f3
+  ScriptInputsDefault:
+    lyricsOffset: true
+  ScriptTypesDefault:
+    {}
+  ScriptInputs:
+    "":
+      lyricsOffset: !<float> 0.000000
+  ScriptTypes:
+    "":
+      {}
 - !<SceneObject/15a76bb2-603d-4e49-bfe6-9352e8bb022e>
   PrefabRemaps:
     []
@@ -385,6 +499,103 @@
     - !<own> 41e5d782-9816-4dd9-ac9b-2fffa91f7cb7
   Components:
     []
+- !<Text/1ed6385a-1ac0-475f-8640-064fca0563db>
+  PrefabRemaps:
+    []
+  Name: Text
+  Enabled: true
+  RenderOrder: 1
+  StretchMode: Stretch
+  VerticalAlignment: Center
+  HorizontalAlignment: Center
+  MeshShadowMode: None
+  ShadowColor: {x: 1.000000, y: 1.000000, z: 1.000000, w: 1.000000}
+  ShadowDensity: 1.000000
+  Text: "[00:00.00] Sunshine brightens up my day (00:00.00)"
+  Editable: false
+  ShowEditingPreview: true
+  TouchHandler: !<reference> 00000000-0000-0000-0000-000000000000
+  SizeToFit: false
+  FontSize: 100
+  Font: !<reference> b06a4d49-868a-43b7-ad1e-fb1be384f123
+  LayoutRect:
+    left: -17.000000
+    bottom: 0.000000
+    right: 17.000000
+    top: 0.000000
+  OverflowVertical: Overflow
+  OverflowHorizontal: Wrap
+  Fill: !<TextFill>
+    Mode: Texture
+    Color: {x: 0.000000, y: 0.000000, z: 0.000000, w: 1.000000}
+    Texture: !<reference> f0d0606d-3f03-46e8-8b93-5e36aadd199f
+    ColorTint: {x: 1.000000, y: 1.000000, z: 1.000000, w: 1.000000}
+    TileCount: 2.000000
+    TileZone: Rect
+    TextureStretch: FitWidth
+  BlendMode: PremultipliedAlphaAuto
+  Outline: !<OutlineSettings>
+    Enabled: false
+    Fill: !<TextFill>
+      Mode: Solid
+      Color: {x: 0.000000, y: 0.000000, z: 0.000000, w: 1.000000}
+      Texture: !<reference> 00000000-0000-0000-0000-000000000000
+      ColorTint: {x: 1.000000, y: 1.000000, z: 1.000000, w: 1.000000}
+      TileCount: 5.000000
+      TileZone: Rect
+      TextureStretch: FitWidth
+    Size: 0.250000
+  Dropshadow: !<DropshadowSettings>
+    Enabled: false
+    Fill: !<TextFill>
+      Mode: Solid
+      Color: {x: 0.000000, y: 0.000000, z: 0.000000, w: 1.000000}
+      Texture: !<reference> 00000000-0000-0000-0000-000000000000
+      ColorTint: {x: 1.000000, y: 1.000000, z: 1.000000, w: 1.000000}
+      TileCount: 5.000000
+      TileZone: Rect
+      TextureStretch: FitWidth
+    OffsetX: 0.250000
+    OffsetY: 0.250000
+  Background: !<BackgroundSettings>
+    Enabled: false
+    Fill: !<TextFill>
+      Mode: Solid
+      Color: {x: 1.000000, y: 1.000000, z: 1.000000, w: 1.000000}
+      Texture: !<reference> 00000000-0000-0000-0000-000000000000
+      ColorTint: {x: 1.000000, y: 1.000000, z: 1.000000, w: 1.000000}
+      TileCount: 5.000000
+      TileZone: Rect
+      TextureStretch: FitWidth
+    Margins:
+      left: 0.000000
+      bottom: 0.000000
+      right: 0.000000
+      top: 0.000000
+    CornerRadius: 0.000000
+  AdvancedLayout: !<TextAdvancedLayout>
+    ExtentsTarget: !<reference> 00000000-0000-0000-0000-000000000000
+    LetterSpacing: 0.000000
+    LineSpacing: 1.000000
+    CapitalizationOverride: None
+  DepthTest: false
+  TwoSided: false
+- !<ScriptComponent/1f992eed-6a0c-4700-9e52-f88d568de50c>
+  PrefabRemaps:
+    []
+  Name: LyricsSubscriber
+  Enabled: true
+  ScriptAsset: !<reference> 413c2595-c8d6-4ea4-acb5-5c673e6c64f3
+  ScriptInputsDefault:
+    lyricsOffset: true
+  ScriptTypesDefault:
+    {}
+  ScriptInputs:
+    "":
+      lyricsOffset: !<float> 0.000000
+  ScriptTypes:
+    "":
+      {}
 - !<SceneObject/22360d0b-2b8a-4dfd-81c6-72aba41062d5>
   PrefabRemaps:
     []
@@ -439,6 +650,22 @@
   ScriptTypes:
     "":
       {}
+- !<ScriptComponent/235b8063-8c18-41cb-8a3a-77fe746f4b72>
+  PrefabRemaps:
+    []
+  Name: LyricsSubscriber
+  Enabled: true
+  ScriptAsset: !<reference> 413c2595-c8d6-4ea4-acb5-5c673e6c64f3
+  ScriptInputsDefault:
+    lyricsOffset: true
+  ScriptTypesDefault:
+    {}
+  ScriptInputs:
+    "":
+      lyricsOffset: !<float> 0.000000
+  ScriptTypes:
+    "":
+      {}
 - !<SceneObject/2509e12c-d4ef-42f6-bf05-42d1094d6f5e>
   PrefabRemaps:
     []
@@ -451,12 +678,6 @@
     Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
     HasSegmentScaleCompensation: false
   Children:
-    - !<own> b42d2a38-2bcc-44c4-b841-4e42e6754657
-    - !<own> 4554f354-b42a-4a95-be1d-292cb0b2d8d5
-    - !<own> 9ca86add-7c3b-4ba0-9853-3e3addf79ea7
-    - !<own> dc3908d2-5115-4e9c-8f32-fb500424aaac
-    - !<own> c5595f29-8b77-4d9e-8259-657005f8aa54
-    - !<own> 6eaab80f-bf3d-472e-ba8f-736e60ec67a2
     - !<own> 2b141a4c-35f2-4413-abd2-be970bdbc133
   Components:
     - !<own> 1ba6409b-f884-444c-a8e4-01bf461f17a9
@@ -665,7 +886,7 @@
   PrefabRemaps:
     []
   Name: Singing
-  Enabled: false
+  Enabled: true
   Layers: 1
   LocalTransform: !<TransformEntity>
     Position: {x: 20.791044, y: 23.351826, z: 0.000000}
@@ -817,7 +1038,7 @@
   PrefabRemaps:
     []
   Name: Signage
-  Enabled: true
+  Enabled: false
   Layers: 1
   LocalTransform: !<TransformEntity>
     Position: {x: 0.000000, y: 0.000000, z: 0.000000}
@@ -825,7 +1046,7 @@
     Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
     HasSegmentScaleCompensation: false
   Children:
-    []
+    - !<own> a32b8fb4-6dcc-4050-8cb1-7ad481ea5626
   Components:
     []
 - !<ScriptComponent/4a39036e-19d7-40bc-904e-5ebebfc807bb>
@@ -878,6 +1099,22 @@
     InvertRotation: false
   SurfaceOptions: !<SurfaceOptions>
     EnhanceWithNativeAR: false
+- !<SceneObject/545271d1-b5be-4365-b11a-d49fffb24fd0>
+  PrefabRemaps:
+    []
+  Name: Sky
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 0.000000, y: 2.698082, z: 0.000000}
+    Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    []
+  Components:
+    - !<own> 71f6f692-bfcf-46b0-81ba-c8873ee94e93
+    - !<own> 03c36660-2287-49e3-ad0f-dedfdabfdb21
 - !<Image/54cbfc42-c59c-4dc0-98ab-7932efe270ca>
   PrefabRemaps:
     []
@@ -1119,11 +1356,27 @@
   RotationAngle: 0
   Pivot: {x: 0.000000, y: 0.000000}
   ExtentsTarget: !<reference> 00000000-0000-0000-0000-000000000000
+- !<SceneObject/615dbecd-16d7-4d31-b225-e3e509388815>
+  PrefabRemaps:
+    []
+  Name: Text
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 0.000000, y: 2.698082, z: 0.000000}
+    Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    []
+  Components:
+    - !<own> 0318fde3-b788-4fa3-b46b-7d8254f9e131
+    - !<own> 735b7d83-3d47-493d-94b0-09de3f797c6c
 - !<SceneObject/62533e0c-9bd3-4ba2-ad7f-0b253daff8f2>
   PrefabRemaps:
     []
   Name: Thinking
-  Enabled: false
+  Enabled: true
   Layers: 1
   LocalTransform: !<TransformEntity>
     Position: {x: -6.280606, y: 27.696112, z: 0.000000}
@@ -1174,6 +1427,14 @@
       Wall: !<reference.SceneObject> 9ca86add-7c3b-4ba0-9853-3e3addf79ea7
       Signage: !<reference.SceneObject> 4554f354-b42a-4a95-be1d-292cb0b2d8d5
       Sky: !<reference.SceneObject> c5595f29-8b77-4d9e-8259-657005f8aa54
+      lyricsLocations: !<reference.SceneObject[]>
+        - !<reference> 6eaab80f-bf3d-472e-ba8f-736e60ec67a2
+        - !<reference> 62533e0c-9bd3-4ba2-ad7f-0b253daff8f2
+        - !<reference> 41e5d782-9816-4dd9-ac9b-2fffa91f7cb7
+        - !<reference> 4554f354-b42a-4a95-be1d-292cb0b2d8d5
+        - !<reference> c5595f29-8b77-4d9e-8259-657005f8aa54
+        - !<reference> dc3908d2-5115-4e9c-8f32-fb500424aaac
+        - !<reference> 9ca86add-7c3b-4ba0-9853-3e3addf79ea7
   ScriptTypes:
     "":
       {}
@@ -1226,6 +1487,87 @@
   RotationAngle: 0
   Pivot: {x: 0.000000, y: 0.000000}
   ExtentsTarget: !<reference> 00000000-0000-0000-0000-000000000000
+- !<Text/71f6f692-bfcf-46b0-81ba-c8873ee94e93>
+  PrefabRemaps:
+    []
+  Name: Text
+  Enabled: true
+  RenderOrder: 1
+  StretchMode: Stretch
+  VerticalAlignment: Center
+  HorizontalAlignment: Center
+  MeshShadowMode: None
+  ShadowColor: {x: 1.000000, y: 1.000000, z: 1.000000, w: 1.000000}
+  ShadowDensity: 1.000000
+  Text: "[00:00.00] Sunshine brightens up my day (00:00.00)"
+  Editable: false
+  ShowEditingPreview: true
+  TouchHandler: !<reference> 00000000-0000-0000-0000-000000000000
+  SizeToFit: false
+  FontSize: 100
+  Font: !<reference> b06a4d49-868a-43b7-ad1e-fb1be384f123
+  LayoutRect:
+    left: -17.000000
+    bottom: 0.000000
+    right: 17.000000
+    top: 0.000000
+  OverflowVertical: Overflow
+  OverflowHorizontal: Wrap
+  Fill: !<TextFill>
+    Mode: Texture
+    Color: {x: 0.000000, y: 0.000000, z: 0.000000, w: 1.000000}
+    Texture: !<reference> f0d0606d-3f03-46e8-8b93-5e36aadd199f
+    ColorTint: {x: 1.000000, y: 1.000000, z: 1.000000, w: 1.000000}
+    TileCount: 2.000000
+    TileZone: Rect
+    TextureStretch: FitWidth
+  BlendMode: PremultipliedAlphaAuto
+  Outline: !<OutlineSettings>
+    Enabled: false
+    Fill: !<TextFill>
+      Mode: Solid
+      Color: {x: 0.000000, y: 0.000000, z: 0.000000, w: 1.000000}
+      Texture: !<reference> 00000000-0000-0000-0000-000000000000
+      ColorTint: {x: 1.000000, y: 1.000000, z: 1.000000, w: 1.000000}
+      TileCount: 5.000000
+      TileZone: Rect
+      TextureStretch: FitWidth
+    Size: 0.250000
+  Dropshadow: !<DropshadowSettings>
+    Enabled: false
+    Fill: !<TextFill>
+      Mode: Solid
+      Color: {x: 0.000000, y: 0.000000, z: 0.000000, w: 1.000000}
+      Texture: !<reference> 00000000-0000-0000-0000-000000000000
+      ColorTint: {x: 1.000000, y: 1.000000, z: 1.000000, w: 1.000000}
+      TileCount: 5.000000
+      TileZone: Rect
+      TextureStretch: FitWidth
+    OffsetX: 0.250000
+    OffsetY: 0.250000
+  Background: !<BackgroundSettings>
+    Enabled: false
+    Fill: !<TextFill>
+      Mode: Solid
+      Color: {x: 1.000000, y: 1.000000, z: 1.000000, w: 1.000000}
+      Texture: !<reference> 00000000-0000-0000-0000-000000000000
+      ColorTint: {x: 1.000000, y: 1.000000, z: 1.000000, w: 1.000000}
+      TileCount: 5.000000
+      TileZone: Rect
+      TextureStretch: FitWidth
+    Margins:
+      left: 0.000000
+      bottom: 0.000000
+      right: 0.000000
+      top: 0.000000
+    CornerRadius: 0.000000
+  AdvancedLayout: !<TextAdvancedLayout>
+    ExtentsTarget: !<reference> 00000000-0000-0000-0000-000000000000
+    LetterSpacing: 0.000000
+    LineSpacing: 1.000000
+    CapitalizationOverride: None
+  DepthTest: false
+  TwoSided: false
 - !<SceneObject/72a9256d-6cb1-4b31-8db1-dd937b1052e9>
   PrefabRemaps:
     []
@@ -1241,6 +1583,22 @@
     []
   Components:
     - !<own> b5862e59-dc12-439b-86fc-8c72671ba0b4
+- !<ScriptComponent/735b7d83-3d47-493d-94b0-09de3f797c6c>
+  PrefabRemaps:
+    []
+  Name: LyricsSubscriber
+  Enabled: true
+  ScriptAsset: !<reference> 413c2595-c8d6-4ea4-acb5-5c673e6c64f3
+  ScriptInputsDefault:
+    lyricsOffset: true
+  ScriptTypesDefault:
+    {}
+  ScriptInputs:
+    "":
+      lyricsOffset: !<float> 0.000000
+  ScriptTypes:
+    "":
+      {}
 - !<ScriptComponent/74081841-b736-44ea-ac97-9940e363c55a>
   PrefabRemaps:
     []
@@ -1586,7 +1944,7 @@
 - !<SceneObject/83e05ac8-2b01-40a4-958a-b6b5552ca97c>
   PrefabRemaps:
     []
-  Name: Text
+  Name: Hand
   Enabled: true
   Layers: 1
   LocalTransform: !<TransformEntity>
@@ -1598,6 +1956,7 @@
     []
   Components:
     - !<own> 81b8df9d-4327-4b40-8cd7-49d341a2d388
+    - !<own> 235b8063-8c18-41cb-8a3a-77fe746f4b72
 - !<ScriptComponent/86c106e9-969c-44d6-8c88-0474569296c4>
   PrefabRemaps:
     []
@@ -1784,6 +2143,22 @@
     []
   Components:
     - !<own> 4bda0ba6-0339-431e-9829-22c50b5a76b8
+- !<SceneObject/8f74b117-44d1-4f29-87ef-6072a357bda7>
+  PrefabRemaps:
+    []
+  Name: Text
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 0.000000, y: 2.698082, z: 0.000000}
+    Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    []
+  Components:
+    - !<own> 983c5ef4-eec8-4667-8b8a-08b00388867b
+    - !<own> c90d8cb0-9f64-4c81-b77a-c0defdf32eb1
 - !<ScriptComponent/9245e011-4241-4fd8-8c94-4f70e3456203>
   PrefabRemaps:
     []
@@ -1924,6 +2299,87 @@
     CapitalizationOverride: None
   DepthTest: false
   TwoSided: false
+- !<Text/983c5ef4-eec8-4667-8b8a-08b00388867b>
+  PrefabRemaps:
+    []
+  Name: Text
+  Enabled: true
+  RenderOrder: 1
+  StretchMode: Stretch
+  VerticalAlignment: Center
+  HorizontalAlignment: Center
+  MeshShadowMode: None
+  ShadowColor: {x: 1.000000, y: 1.000000, z: 1.000000, w: 1.000000}
+  ShadowDensity: 1.000000
+  Text: "[00:00.00] Sunshine brightens up my day (00:00.00)"
+  Editable: false
+  ShowEditingPreview: true
+  TouchHandler: !<reference> 00000000-0000-0000-0000-000000000000
+  SizeToFit: false
+  FontSize: 100
+  Font: !<reference> b06a4d49-868a-43b7-ad1e-fb1be384f123
+  LayoutRect:
+    left: -17.000000
+    bottom: 0.000000
+    right: 17.000000
+    top: 0.000000
+  OverflowVertical: Overflow
+  OverflowHorizontal: Wrap
+  Fill: !<TextFill>
+    Mode: Texture
+    Color: {x: 0.000000, y: 0.000000, z: 0.000000, w: 1.000000}
+    Texture: !<reference> f0d0606d-3f03-46e8-8b93-5e36aadd199f
+    ColorTint: {x: 1.000000, y: 1.000000, z: 1.000000, w: 1.000000}
+    TileCount: 2.000000
+    TileZone: Rect
+    TextureStretch: FitWidth
+  BlendMode: PremultipliedAlphaAuto
+  Outline: !<OutlineSettings>
+    Enabled: false
+    Fill: !<TextFill>
+      Mode: Solid
+      Color: {x: 0.000000, y: 0.000000, z: 0.000000, w: 1.000000}
+      Texture: !<reference> 00000000-0000-0000-0000-000000000000
+      ColorTint: {x: 1.000000, y: 1.000000, z: 1.000000, w: 1.000000}
+      TileCount: 5.000000
+      TileZone: Rect
+      TextureStretch: FitWidth
+    Size: 0.250000
+  Dropshadow: !<DropshadowSettings>
+    Enabled: false
+    Fill: !<TextFill>
+      Mode: Solid
+      Color: {x: 0.000000, y: 0.000000, z: 0.000000, w: 1.000000}
+      Texture: !<reference> 00000000-0000-0000-0000-000000000000
+      ColorTint: {x: 1.000000, y: 1.000000, z: 1.000000, w: 1.000000}
+      TileCount: 5.000000
+      TileZone: Rect
+      TextureStretch: FitWidth
+    OffsetX: 0.250000
+    OffsetY: 0.250000
+  Background: !<BackgroundSettings>
+    Enabled: false
+    Fill: !<TextFill>
+      Mode: Solid
+      Color: {x: 1.000000, y: 1.000000, z: 1.000000, w: 1.000000}
+      Texture: !<reference> 00000000-0000-0000-0000-000000000000
+      ColorTint: {x: 1.000000, y: 1.000000, z: 1.000000, w: 1.000000}
+      TileCount: 5.000000
+      TileZone: Rect
+      TextureStretch: FitWidth
+    Margins:
+      left: 0.000000
+      bottom: 0.000000
+      right: 0.000000
+      top: 0.000000
+    CornerRadius: 0.000000
+  AdvancedLayout: !<TextAdvancedLayout>
+    ExtentsTarget: !<reference> 00000000-0000-0000-0000-000000000000
+    LetterSpacing: 0.000000
+    LineSpacing: 1.000000
+    CapitalizationOverride: None
+  DepthTest: false
+  TwoSided: false
 - !<SceneObject/9a38f28e-4b0b-435b-971e-0c20b3138223>
   PrefabRemaps:
     []
@@ -1962,7 +2418,7 @@
   PrefabRemaps:
     []
   Name: Wall
-  Enabled: true
+  Enabled: false
   Layers: 1
   LocalTransform: !<TransformEntity>
     Position: {x: 0.000000, y: 0.000000, z: 0.000000}
@@ -1970,7 +2426,7 @@
     Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
     HasSegmentScaleCompensation: false
   Children:
-    []
+    - !<own> 615dbecd-16d7-4d31-b225-e3e509388815
   Components:
     []
 - !<SceneObject/9cc9a2f0-94a0-4550-bd72-06bfcbf441d7>
@@ -1988,6 +2444,22 @@
     - !<own> 835adffa-2e22-446b-9e5f-4f5d0728cf72
   Components:
     []
+- !<ScriptComponent/9d3ad48c-045d-4812-85af-e1c916a1703b>
+  PrefabRemaps:
+    []
+  Name: LyricsSubscriber
+  Enabled: true
+  ScriptAsset: !<reference> 413c2595-c8d6-4ea4-acb5-5c673e6c64f3
+  ScriptInputsDefault:
+    lyricsOffset: true
+  ScriptTypesDefault:
+    {}
+  ScriptInputs:
+    "":
+      lyricsOffset: !<float> 0.000000
+  ScriptTypes:
+    "":
+      {}
 - !<SceneObject/a02f5c2e-95c1-4d39-9df8-6e0ec702f589>
   PrefabRemaps:
     []
@@ -2003,6 +2475,22 @@
     []
   Components:
     - !<own> e32890f4-51ac-436b-b26b-f5209fa46156
+- !<SceneObject/a32b8fb4-6dcc-4050-8cb1-7ad481ea5626>
+  PrefabRemaps:
+    []
+  Name: Text
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 0.000000, y: 2.698082, z: 0.000000}
+    Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    []
+  Components:
+    - !<own> 1ed6385a-1ac0-475f-8640-064fca0563db
+    - !<own> 14730de8-7d74-40ad-8f46-28a69e6e7ffe
 - !<ScriptComponent/aa4b8ad0-b25e-4677-8cba-948c54801612>
   PrefabRemaps:
     []
@@ -2321,7 +2809,7 @@
   PrefabRemaps:
     []
   Name: Sky
-  Enabled: true
+  Enabled: false
   Layers: 1
   LocalTransform: !<TransformEntity>
     Position: {x: 0.000000, y: 0.000000, z: 0.000000}
@@ -2329,7 +2817,7 @@
     Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
     HasSegmentScaleCompensation: false
   Children:
-    []
+    - !<own> 545271d1-b5be-4365-b11a-d49fffb24fd0
   Components:
     []
 - !<ScriptComponent/c747ff0f-0265-4181-88b1-1144418bfed4>
@@ -2351,6 +2839,42 @@
       handTypes: right
       trackedLandmark: palmCenter
       viewInEditor: true
+  ScriptTypes:
+    "":
+      {}
+- !<SceneObject/c84ad341-7db4-4530-bc55-13e1da8912a9>
+  PrefabRemaps:
+    []
+  Name: LyricsLocations
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    - !<own> b42d2a38-2bcc-44c4-b841-4e42e6754657
+    - !<own> 4554f354-b42a-4a95-be1d-292cb0b2d8d5
+    - !<own> 9ca86add-7c3b-4ba0-9853-3e3addf79ea7
+    - !<own> dc3908d2-5115-4e9c-8f32-fb500424aaac
+    - !<own> c5595f29-8b77-4d9e-8259-657005f8aa54
+    - !<own> 6eaab80f-bf3d-472e-ba8f-736e60ec67a2
+  Components:
+    []
+- !<ScriptComponent/c90d8cb0-9f64-4c81-b77a-c0defdf32eb1>
+  PrefabRemaps:
+    []
+  Name: LyricsSubscriber
+  Enabled: true
+  ScriptAsset: !<reference> 413c2595-c8d6-4ea4-acb5-5c673e6c64f3
+  ScriptInputsDefault:
+    lyricsOffset: true
+  ScriptTypesDefault:
+    {}
+  ScriptInputs:
+    "":
+      lyricsOffset: !<float> 0.000000
   ScriptTypes:
     "":
       {}
@@ -2425,7 +2949,7 @@
 - !<SceneObject/d90f2a85-dc8b-4482-a7a8-d8b1322403e0>
   PrefabRemaps:
     []
-  Name: Text
+  Name: Singing
   Enabled: true
   Layers: 1
   LocalTransform: !<TransformEntity>
@@ -2437,11 +2961,12 @@
     []
   Components:
     - !<own> 121c4af1-2c60-431c-b8db-06ba0fc8fd4f
+    - !<own> 1f992eed-6a0c-4700-9e52-f88d568de50c
 - !<SceneObject/dc3908d2-5115-4e9c-8f32-fb500424aaac>
   PrefabRemaps:
     []
   Name: Floor
-  Enabled: true
+  Enabled: false
   Layers: 1
   LocalTransform: !<TransformEntity>
     Position: {x: 0.000000, y: 0.000000, z: 0.000000}
@@ -2449,7 +2974,7 @@
     Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
     HasSegmentScaleCompensation: false
   Children:
-    []
+    - !<own> 8f74b117-44d1-4f29-87ef-6072a357bda7
   Components:
     []
 - !<Image/dcfadafe-d8aa-4e55-a276-f0cbe3082ff0>
@@ -2695,7 +3220,7 @@
 - !<SceneObject/f877ea20-8f3c-4ca4-8227-da8767b180e1>
   PrefabRemaps:
     []
-  Name: Text
+  Name: Thinking
   Enabled: true
   Layers: 1
   LocalTransform: !<TransformEntity>
@@ -2707,6 +3232,7 @@
     []
   Components:
     - !<own> 982d35f7-1d4d-4e4a-88c3-618b9212620c
+    - !<own> 9d3ad48c-045d-4812-85af-e1c916a1703b
 - !<SceneObject/fb5984a7-0e54-4960-9d2b-d1ef5610484a>
   PrefabRemaps:
     []
