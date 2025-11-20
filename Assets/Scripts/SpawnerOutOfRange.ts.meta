@@ -1,0 +1,74 @@
+- !<AssetImportMetadata/109c96c3-a5bb-4260-844e-f0d23a80df19>
+  ImportedAssetIds:
+    TypeScriptAsset: !<reference> e684d86b-7cff-4aa1-8f5f-cbdb4cbef052
+  ImporterName: TypeScriptAssetImporter
+  PrimaryAsset: !<reference> e684d86b-7cff-4aa1-8f5f-cbdb4cbef052
+  PackageType: NotAPackage
+  LegacyPackagePolicy: ~
+  ExtraData:
+    {}
+  AssetDataMap:
+    TypeScriptAsset: !<own> 85aea5c1-3ccb-4e9f-91c0-4ff0ce90b28c
+  DependentFiles:
+    []
+  ImporterSettings: !<AssetImporterSettings>
+    {}
+  CompressionSettings: !<own> 00000000-0000-0000-0000-000000000000
+- !<TypeScriptAssetData/85aea5c1-3ccb-4e9f-91c0-4ff0ce90b28c>
+  SvgIcon: ""
+  SetupScript:
+    code: ""
+  Description: ""
+  VersionMajor: 0
+  VersionMinor: 0
+  VersionPatch: 0
+  ComponentUid: 844c2cf7-3aa8-4df8-a2c7-6f34d766fb14
+  ExportUid: 00000000-0000-0000-0000-000000000000
+  PackagePolicy: CanBeUnpacked
+  ScriptInputsHidden:
+    changeDistance: false
+    changePitch: false
+    changeYaw: false
+    debugText: false
+    distanceRange: false
+    distanceThreshold: false
+    pitchRange: false
+    printDebug: false
+    target: false
+    transitionDuration: false
+    yawRange: false
+  ScriptTypesHidden:
+    {}
+  ReadMe: !<reference> 00000000-0000-0000-0000-000000000000
+  DeclarationFile: !<reference> 00000000-0000-0000-0000-000000000000
+  Tags:
+    []
+  Attachments:
+    []
+  DefaultScriptInputs:
+    - target: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      distanceThreshold: !<float> 0.000000
+      changeYaw: true
+      yawRange: !<Vec2> {x: 0.000000, y: 0.000000}
+      changePitch: true
+      pitchRange: !<Vec2> {x: 0.000000, y: 0.000000}
+      changeDistance: true
+      distanceRange: !<Vec2> {x: 0.000000, y: 0.000000}
+      debugText: !<reference.Text> 00000000-0000-0000-0000-000000000000
+      printDebug: false
+      transitionDuration: !<float> 2000.000000
+  ScriptTypes:
+    -
+      {}
+  InputLines:
+    - // @input SceneObject target
+    - '// @input float distanceThreshold {"hint":"Specifies this distance (in cm) to trigger the respawn"}'
+    - // @input bool changeYaw = true
+    - '// @input vec2 yawRange {"hint":"Relative to target orientation", "showIf":"changeYaw", "showIfValue":true}'
+    - // @input bool changePitch = true
+    - '// @input vec2 pitchRange {"hint":"Relative to horizon", "showIf":"changePitch", "showIfValue":true}'
+    - // @input bool changeDistance = true
+    - '// @input vec2 distanceRange {"hint":"Relative to target position", "showIf":"changeDistance", "showIfValue":true}'
+    - // @input Component.Text debugText
+    - // @input bool printDebug
+    - // @input float transitionDuration = 2000
