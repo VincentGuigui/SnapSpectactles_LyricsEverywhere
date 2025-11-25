@@ -29,13 +29,17 @@
     changeDistance: false
     changePitch: false
     changeYaw: false
+    customSpawn: false
     debugText: false
     distanceRange: false
     distanceThreshold: false
+    objectToSpawn: false
+    onTheFloor: false
     pitchRange: false
     printDebug: false
-    target: false
+    referenceObject: false
     transitionDuration: false
+    worldHitTest: false
     yawRange: false
   ScriptTypesHidden:
     {}
@@ -46,29 +50,37 @@
   Attachments:
     []
   DefaultScriptInputs:
-    - target: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
-      distanceThreshold: !<float> 0.000000
+    - worldHitTest: !<MappingBased.AssignableType> 00000000-0000-0000-0000-000000000000
+      referenceObject: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      objectToSpawn: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
       changeYaw: true
       yawRange: !<Vec2> {x: 0.000000, y: 0.000000}
       changePitch: true
       pitchRange: !<Vec2> {x: 0.000000, y: 0.000000}
+      onTheFloor: false
       changeDistance: true
       distanceRange: !<Vec2> {x: 0.000000, y: 0.000000}
       debugText: !<reference.Text> 00000000-0000-0000-0000-000000000000
       printDebug: false
       transitionDuration: !<float> 2000.000000
+      customSpawn: false
+      distanceThreshold: !<float> 0.000000
   ScriptTypes:
     -
       {}
   InputLines:
-    - // @input SceneObject target
-    - '// @input float distanceThreshold {"hint":"Specifies this distance (in cm) to trigger the respawn"}'
+    - // @input AssignableType worldHitTest
+    - // @input SceneObject referenceObject
+    - // @input SceneObject objectToSpawn
     - // @input bool changeYaw = true
-    - '// @input vec2 yawRange {"hint":"Relative to target orientation", "showIf":"changeYaw", "showIfValue":true}'
+    - '// @input vec2 yawRange {"hint":"Relative to referenceObject orientation (horizontal)", "showIf":"changeYaw", "showIfValue":true}'
     - // @input bool changePitch = true
-    - '// @input vec2 pitchRange {"hint":"Relative to horizon", "showIf":"changePitch", "showIfValue":true}'
+    - '// @input vec2 pitchRange {"hint":"Relative to horizon (vertical)", "showIf":"changePitch", "showIfValue":true}'
+    - '// @input bool onTheFloor {"hint":"On the floor", "showIf":"on the floor or head relative", "showIfValue":true}'
     - // @input bool changeDistance = true
-    - '// @input vec2 distanceRange {"hint":"Relative to target position", "showIf":"changeDistance", "showIfValue":true}'
+    - '// @input vec2 distanceRange {"hint":"Relative to referenceObject position", "showIf":"changeDistance", "showIfValue":true}'
     - // @input Component.Text debugText
     - // @input bool printDebug
     - // @input float transitionDuration = 2000
+    - '// @input bool customSpawn {"hint":"Call to Spawn method will be done by code"}'
+    - '// @input float distanceThreshold {"hint":"Specifies this distance (in cm) to trigger the respawn"}'

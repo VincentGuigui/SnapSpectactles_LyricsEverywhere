@@ -1,20 +1,20 @@
-- !<AssetImportMetadata/dd0b3121-adff-4861-92e5-bfe7ffd3319c>
+- !<AssetImportMetadata/70d0ef96-1f64-4578-b701-92320c8b6cae>
   ImportedAssetIds:
-    TypeScriptAsset: !<reference> 5b70a1c0-9977-43de-95c2-bf2a7af233af
+    TypeScriptAsset: !<reference> e6d4c5c0-3882-4151-8873-3287353fcf48
   ImporterName: TypeScriptAssetImporter
-  PrimaryAsset: !<reference> 5b70a1c0-9977-43de-95c2-bf2a7af233af
+  PrimaryAsset: !<reference> e6d4c5c0-3882-4151-8873-3287353fcf48
   PackageType: NotAPackage
   LegacyPackagePolicy: ~
   ExtraData:
     {}
   AssetDataMap:
-    TypeScriptAsset: !<own> d858001a-387f-4e12-a127-51ad53a06220
+    TypeScriptAsset: !<own> 2c5e7166-971c-4397-a680-9152031b5b40
   DependentFiles:
     []
   ImporterSettings: !<AssetImporterSettings>
     {}
   CompressionSettings: !<own> 00000000-0000-0000-0000-000000000000
-- !<TypeScriptAssetData/d858001a-387f-4e12-a127-51ad53a06220>
+- !<TypeScriptAssetData/2c5e7166-971c-4397-a680-9152031b5b40>
   SvgIcon: ""
   SetupScript:
     code: ""
@@ -22,7 +22,7 @@
   VersionMajor: 0
   VersionMinor: 0
   VersionPatch: 0
-  ComponentUid: fce9561d-07c0-4fda-9b35-2abde1f2c0cf
+  ComponentUid: fa9a4f67-6469-4967-8e17-467ecbda43ef
   ExportUid: 00000000-0000-0000-0000-000000000000
   PackagePolicy: CanBeUnpacked
   ScriptInputsHidden:
@@ -50,7 +50,8 @@
   Attachments:
     []
   DefaultScriptInputs:
-    - referenceObject: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+    - worldHitTest: !<MappingBased.AssignableType> 00000000-0000-0000-0000-000000000000
+      referenceObject: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
       objectToSpawn: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
       changeYaw: true
       yawRange: !<Vec2> {x: 0.000000, y: 0.000000}
@@ -64,11 +65,11 @@
       transitionDuration: !<float> 2000.000000
       customSpawn: false
       distanceThreshold: !<float> 0.000000
-      worldHitTest: !<MappingBased.AssignableType> 00000000-0000-0000-0000-000000000000
   ScriptTypes:
     -
       {}
   InputLines:
+    - // @input AssignableType worldHitTest
     - // @input SceneObject referenceObject
     - // @input SceneObject objectToSpawn
     - // @input bool changeYaw = true
@@ -83,4 +84,3 @@
     - // @input float transitionDuration = 2000
     - '// @input bool customSpawn {"hint":"Call to Spawn method will be done by code"}'
     - '// @input float distanceThreshold {"hint":"Specifies this distance (in cm) to trigger the respawn"}'
-    - // @input AssignableType worldHitTest

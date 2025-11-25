@@ -30,7 +30,7 @@ export class LyricsReader extends BaseScriptComponent {
     @input
     private Sky: SceneObject = undefined
 
-    private _camera = WorldCameraFinderProvider.getInstance();
+    private camera = WorldCameraFinderProvider.getInstance();
 
     @input
     lyricsLocations: SceneObject[]
@@ -87,11 +87,11 @@ export class LyricsReader extends BaseScriptComponent {
         // display Hand if no Head visible
         this.Hand.enabled = !headIsVisible;
 
-        var cameraLookAt = this._camera.back()
+        var cameraLookAt = this.camera.forward()
 
         // FLOOR DANCE STEPS
         // display floor if look at the floor
-        if (cameraLookAt.angleTo(vec3.down()) < 35 * MathUtils.DegToRad) {
+        if (cameraLookAt.angleTo(vec3.down()) > 145 * MathUtils.DegToRad) {
             this.Floor.enabled = true
             // children will spawn using WorldQueryHitTest
         } else {
@@ -106,22 +106,22 @@ export class LyricsReader extends BaseScriptComponent {
         }
 
         // SIDEWALK
-        console.log("spawn rabbit ?", cameraLookAt.angleTo(vec3.down())*MathUtils.RadToDeg, cameraLookAt.angleTo(vec3.right())*MathUtils.RadToDeg)
-        if (cameraLookAt.angleTo(vec3.down()) > 40 * MathUtils.DegToRad
-            && cameraLookAt.angleTo(vec3.down()) < 50 * MathUtils.DegToRad
-            && cameraLookAt.angleTo(vec3.right()) > 30 * MathUtils.DegToRad
-            && cameraLookAt.angleTo(vec3.right()) < 40 * MathUtils.DegToRad) {
-            console.log("Spawn Rabbit")
-            this.Sidewalk.enabled = true
-            // children will spawn using WorldQueryHitTest
-        }
-        if (this.Sidewalk.enabled) {
-            if (!this._camera.getComponent().isSphereVisible(this.Sidewalk.children[0].getTransform().getWorldPosition().add(vec3.up().uniformScale(50)), 150)) {
-                console.log("Unspawn Rabbit")
-                this.Sidewalk.children[0].enabled = false
-                this.Sidewalk.enabled = false
-            }
-        }
+        // console.log("spawn rabbit ?", cameraLookAt.angleTo(vec3.down())*MathUtils.RadToDeg, cameraLookAt.angleTo(vec3.right())*MathUtils.RadToDeg)
+        // if (cameraLookAt.angleTo(vec3.down()) > 40 * MathUtils.DegToRad
+        //     && cameraLookAt.angleTo(vec3.down()) < 50 * MathUtils.DegToRad
+        //     && cameraLookAt.angleTo(vec3.right()) > 30 * MathUtils.DegToRad
+        //     && cameraLookAt.angleTo(vec3.right()) < 40 * MathUtils.DegToRad) {
+        //     console.log("Spawn Rabbit")
+        //     this.Sidewalk.enabled = true
+        //     // children will spawn using WorldQueryHitTest
+        // }
+        // if (this.Sidewalk.enabled) {
+        //     if (!this.camera.getComponent().isSphereVisible(this.Sidewalk.children[0].getTransform().getWorldPosition().add(vec3.up().uniformScale(50)), 150)) {
+        //         console.log("Unspawn Rabbit")
+        //         this.Sidewalk.children[0].enabled = false
+        //         this.Sidewalk.enabled = false
+        //     }
+        // }
 
         // PROPAGATION
         if (this._state == "playing") {

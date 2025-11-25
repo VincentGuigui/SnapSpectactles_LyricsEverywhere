@@ -1,20 +1,20 @@
-- !<AssetImportMetadata/dd0b3121-adff-4861-92e5-bfe7ffd3319c>
+- !<AssetImportMetadata/c1679c5a-c1a3-4400-b3c1-9f20bc5fd3c7>
   ImportedAssetIds:
-    TypeScriptAsset: !<reference> 5b70a1c0-9977-43de-95c2-bf2a7af233af
+    TypeScriptAsset: !<reference> 4860dc99-6b89-4fc2-9453-d4f2be69bd47
   ImporterName: TypeScriptAssetImporter
-  PrimaryAsset: !<reference> 5b70a1c0-9977-43de-95c2-bf2a7af233af
+  PrimaryAsset: !<reference> 4860dc99-6b89-4fc2-9453-d4f2be69bd47
   PackageType: NotAPackage
   LegacyPackagePolicy: ~
   ExtraData:
     {}
   AssetDataMap:
-    TypeScriptAsset: !<own> d858001a-387f-4e12-a127-51ad53a06220
+    TypeScriptAsset: !<own> 301e2711-0b20-451d-a8ce-f08bec24552a
   DependentFiles:
     []
   ImporterSettings: !<AssetImporterSettings>
     {}
   CompressionSettings: !<own> 00000000-0000-0000-0000-000000000000
-- !<TypeScriptAssetData/d858001a-387f-4e12-a127-51ad53a06220>
+- !<TypeScriptAssetData/301e2711-0b20-451d-a8ce-f08bec24552a>
   SvgIcon: ""
   SetupScript:
     code: ""
@@ -22,7 +22,7 @@
   VersionMajor: 0
   VersionMinor: 0
   VersionPatch: 0
-  ComponentUid: fce9561d-07c0-4fda-9b35-2abde1f2c0cf
+  ComponentUid: 0f5967cf-a8fd-4126-adf5-edb40dc17a3f
   ExportUid: 00000000-0000-0000-0000-000000000000
   PackagePolicy: CanBeUnpacked
   ScriptInputsHidden:
@@ -50,8 +50,10 @@
   Attachments:
     []
   DefaultScriptInputs:
-    - referenceObject: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+    - worldHitTest: !<MappingBased.AssignableType> 00000000-0000-0000-0000-000000000000
+      referenceObject: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
       objectToSpawn: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      distanceThreshold: !<float> 0.000000
       changeYaw: true
       yawRange: !<Vec2> {x: 0.000000, y: 0.000000}
       changePitch: true
@@ -63,14 +65,14 @@
       printDebug: false
       transitionDuration: !<float> 2000.000000
       customSpawn: false
-      distanceThreshold: !<float> 0.000000
-      worldHitTest: !<MappingBased.AssignableType> 00000000-0000-0000-0000-000000000000
   ScriptTypes:
     -
       {}
   InputLines:
+    - // @input AssignableType worldHitTest
     - // @input SceneObject referenceObject
     - // @input SceneObject objectToSpawn
+    - '// @input float distanceThreshold {"hint":"Specifies this distance (in cm) to trigger the respawn"}'
     - // @input bool changeYaw = true
     - '// @input vec2 yawRange {"hint":"Relative to referenceObject orientation (horizontal)", "showIf":"changeYaw", "showIfValue":true}'
     - // @input bool changePitch = true
@@ -82,5 +84,3 @@
     - // @input bool printDebug
     - // @input float transitionDuration = 2000
     - '// @input bool customSpawn {"hint":"Call to Spawn method will be done by code"}'
-    - '// @input float distanceThreshold {"hint":"Specifies this distance (in cm) to trigger the respawn"}'
-    - // @input AssignableType worldHitTest
