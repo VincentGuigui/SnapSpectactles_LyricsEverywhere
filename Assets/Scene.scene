@@ -3051,7 +3051,7 @@
   ScriptInputs:
     "":
       handFollowObject: !<reference.SceneObject> afe16b33-1b28-42b3-b954-f41a372820ce
-      distanceToLandmark: !<Vec3> {x: 0.000000, y: -1.000000, z: -2.000000}
+      distanceToLandmark: !<Vec3> {x: 0.000000, y: 0.000000, z: 3.000000}
       maxHandAngle: !<float> 70.000000
       handTypes: left
       trackedLandmark: middleMidJoint
@@ -5015,7 +5015,7 @@
   ScriptInputs:
     "":
       handFollowObject: !<reference.SceneObject> 0c199c41-b7b7-400d-95de-4d017670319e
-      distanceToLandmark: !<Vec3> {x: 0.000000, y: -1.000000, z: -2.000000}
+      distanceToLandmark: !<Vec3> {x: 0.000000, y: 0.000000, z: 3.000000}
       maxHandAngle: !<float> 70.000000
       handTypes: left
       trackedLandmark: indexMidJoint
