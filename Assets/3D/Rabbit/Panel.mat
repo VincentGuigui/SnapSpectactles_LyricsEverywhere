@@ -21,7 +21,7 @@
     - NODE_27_DROPLIST_ITEM 0
     - NODE_49_DROPLIST_ITEM 0
     - NODE_69_DROPLIST_ITEM 0
-  BlendMode: PremultipliedAlphaAuto
+  BlendMode: Disabled
   Properties:
     Port_Default_N204:
       typeIdx: 1
@@ -31,7 +31,7 @@
       value: 0
     baseColor:
       typeIdx: 5
-      value: {x: 1.000000, y: 1.000000, z: 1.000000, w: 1.000000}
+      value: {x: 0.819608, y: 0.713726, z: 0.705882, w: 1.000000}
     baseTex:
       typeIdx: 9
       value:

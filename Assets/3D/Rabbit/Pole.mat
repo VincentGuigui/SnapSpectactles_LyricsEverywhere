@@ -31,11 +31,11 @@
       value: 0
     baseColor:
       typeIdx: 5
-      value: {x: 1.000000, y: 1.000000, z: 1.000000, w: 1.000000}
+      value: {x: 0.639216, y: 0.580392, z: 0.564706, w: 1.000000}
     baseTex:
       typeIdx: 9
       value:
-        id: f0d0606d-3f03-46e8-8b93-5e36aadd199f
+        id: 80f02e5a-ab1c-4417-b678-c9e7435d0310
         sampler:
           filteringMode: Trilinear
           wrapModeU: Repeat
