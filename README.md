@@ -8,9 +8,11 @@ This project is an Augmented Reality Lens designed for Snap Spectacles, built to
 <img src="docs/screenshot_04.jpg" height="300"/>
 <img src="docs/screenshot_05.jpg" height="300"/>
 
-Want to watch a demo ? [Lyrcis Everywhere Lens for Snap Spectacles on Youtube](https://youtu.be/mG_LEPo_CX4)
+If you have a pair of Snap Spectacles, you can search for [Lyrics Everywhere](https://www.spectacles.com/lens/2d83bc5eff7342ff8da16c78a8776f21?type=SNAPCODE&metadata=01]
 
-Here is the sub-reddit to talk, comment and give feedback: [Lyrics Everywhere for Snap Spectacles on Reddit](https://www.reddit.com/r/Spectacles/comments/1pafjom/lyrics_everywhere_bringing_song_lyrics_into_the/)
+If not, you can watch a video demo : [Lyrcis Everywhere Lens for Snap Spectacles on Youtube](https://youtu.be/mG_LEPo_CX4)
+
+Want to talk, comment and give feedback ? Here is the sub-reddit: [Lyrics Everywhere for Snap Spectacles on Reddit](https://www.reddit.com/r/Spectacles/comments/1pafjom/lyrics_everywhere_bringing_song_lyrics_into_the/)
 
 # 🎯 Goal
 
