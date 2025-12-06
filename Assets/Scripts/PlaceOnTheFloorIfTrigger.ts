@@ -18,7 +18,13 @@ export class PlaceOnTheFloorIfTrigger extends SpawnerBase {
         this.createEvent("OnStartEvent").bind(this.onStart.bind(this))
         this.createEvent("OnEnableEvent").bind(this.onEnable.bind(this))
         this.createEvent("OnDisableEvent").bind(this.onDisable.bind(this))
-        this.registration = new MyWorldQueryHitSubscriberRegistration(true, true, true, this.sceneObject, this.onHit.bind(this))
+        this.registration = new MyWorldQueryHitSubscriberRegistration()
+        this.registration.receivePlaceholder = true
+        this.registration.placeholderByHand = false
+        this.registration.receiveTrigger = true
+        this.registration.triggerByHand = true
+        this.registration.subscriber = this.sceneObject
+        this.registration.hitCallback = this.onHit.bind(this)
         this.registration.surfaceType = MyWorldQueryHitSurfaceTypes.Floor
     }
 

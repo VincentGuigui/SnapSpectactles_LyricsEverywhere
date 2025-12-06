@@ -6,27 +6,35 @@ const WorldQueryModule = require("LensStudio:WorldQueryModule")
 const SIK = require("SpectaclesInteractionKit.lspkg/SIK").SIK
 const EPSILON = 0.01
 const MIN_DISTANCE_TO_FLOOR = 100;
+const HAND = true
+const HEAD = false
 
 @component
 export class MyWorldQueryHitTest extends BaseScriptComponent {
 
+    @input
+    surfaceClassification = false
+    @input
+    filter = false
+    @input
+    printDebug = false
+
+
     private primaryInteractor
     private hitTestSession: HitTestSession
-
     private camera = WorldCameraFinderProvider.getInstance()
     private rayStart: vec3
+    private subs: Map<boolean, MyWorldQueryHitSubscriberRegistration[]> = new Map()
+    private placeholderSubs: Map<boolean, MyWorldQueryHitSubscriberRegistration[]> = new Map()
+    private placeholderFloorSubs: Map<boolean, MyWorldQueryHitSubscriberRegistration[]> = new Map()
+    private triggeredSubs: Map<boolean, MyWorldQueryHitSubscriberRegistration[]> = new Map()
+    private triggeredFloorSubs: Map<boolean, MyWorldQueryHitSubscriberRegistration[]> = new Map()
+    private headPlaceholderFloorSubs: Map<boolean, MyWorldQueryHitSubscriberRegistration[]> = new Map()
     public currentHitPosition: vec3
     public currentHitRotation: quat
     public currentHitRotationParrallelToGround: quat
     subscribers: MyWorldQueryHitSubscriberRegistration[] = []
 
-    @input
-    surfaceClassification = false
-
-    @input
-    filter = false
-    @input
-    printDebug = false
 
     printDebugInEditor(...data: any[]) {
         if (this.printDebug && global.deviceInfoSystem.isEditor)
@@ -42,19 +50,39 @@ export class MyWorldQueryHitTest extends BaseScriptComponent {
         return this.subscribers.indexOf(registration) > -1
 
     }
+
     register(registration: MyWorldQueryHitSubscriberRegistration) {
         this.printDebugInEditor("WorldQuery Register", registration.subscriber.name)
         if (!this.isRegistered(registration)) {
             this.subscribers.push(registration)
+            this.buildSubsCache()
         }
     }
 
     unregister(registration: MyWorldQueryHitSubscriberRegistration) {
-        var index = this.subscribers.indexOf(registration)
-        if (index > -1) {
+        if (this.removeFromArray(this.subscribers, registration)) {
             this.printDebugInEditor("WorldQuery Unregister", registration.subscriber.name)
-            this.subscribers.splice(index, 1)
+            this.buildSubsCache()
         }
+    }
+
+    private buildSubsCache() {
+        [HAND, HEAD].forEach(handOrHead => {
+            this.subs.set(handOrHead, this.subscribers.filter((sub) => { return (sub.receiveTrigger && sub.triggerByHand == handOrHead) || (sub.receivePlaceholder && sub.placeholderByHand == handOrHead) }))
+            this.placeholderSubs.set(handOrHead, this.subs.get(handOrHead).filter((sub, index, arr) => { return sub.receivePlaceholder }))
+            this.placeholderFloorSubs.set(handOrHead, this.placeholderSubs.get(handOrHead).filter((sub, index, arr) => { return sub.surfaceType == MyWorldQueryHitSurfaceTypes.Floor }))
+            this.triggeredSubs.set(handOrHead, this.subs.get(handOrHead).filter((sub, index, arr) => { return sub.receiveTrigger }))
+            this.triggeredFloorSubs.set(handOrHead, this.triggeredSubs.get(handOrHead).filter((sub, index, arr) => { return sub.surfaceType == MyWorldQueryHitSurfaceTypes.Floor }))
+        });
+    }
+
+    private removeFromArray(arr: MyWorldQueryHitSubscriberRegistration[], element: MyWorldQueryHitSubscriberRegistration) {
+        var index = arr.indexOf(element)
+        if (index > -1) {
+            arr.splice(index, 1)
+            return true
+        }
+        return false
     }
 
     private createHitTestSession() {
@@ -82,8 +110,7 @@ export class MyWorldQueryHitTest extends BaseScriptComponent {
         if (this.hitTestSession == null) {
             return
         }
-        var needHand = this.subscribers.find((sub) => { return sub.handHit })
-        if (needHand) {
+        if (this.subs.get(HAND).length > 0) {
             this.primaryInteractor = SIK.InteractionManager.getTargetingInteractors().shift()
             if (this.primaryInteractor &&
                 this.primaryInteractor.isActive() &&
@@ -98,21 +125,20 @@ export class MyWorldQueryHitTest extends BaseScriptComponent {
             }
         }
         else {
-            this.rayStart = this.camera.getWorldPosition()
-            const rayEnd = this.camera.getForwardPosition(300, false)
-            this.hitTestSession.hitTest(this.rayStart, rayEnd, this.onGazeHitTestResult.bind(this))
+            if (this.subs.get(HEAD).length > 0) {
+                this.rayStart = this.camera.getWorldPosition()
+                const rayEnd = this.camera.getForwardPosition(300, false)
+                this.hitTestSession.hitTest(this.rayStart, rayEnd, this.onGazeHitTestResult.bind(this))
+            }
         }
     }
 
-    onHitTestResultCore(results: WorldQueryHitTestResult, handHit: boolean) {
-        var subs = this.subscribers.filter((sub, index, arr) => { return sub.handHit == handHit })
+    onHitTestResultCore(results: WorldQueryHitTestResult, triggerByHand: boolean) {
         if (results == null) {
-            subs.forEach(sub => { sub.hitCallback(null) })
+            this.subs.get(triggerByHand).forEach(sub => { sub.hitCallback(null) })
             return
         }
 
-        var placeholderSubs = subs.filter((sub, index, arr) => { return sub.receivePlaceholder })
-        var triggeredSubs = subs.filter((sub, index, arr) => { return sub.receiveTrigger })
         // get hit information
         const hitPosition: vec3 = results.position
         const hitNormal: vec3 = results.normal
@@ -122,25 +148,23 @@ export class MyWorldQueryHitTest extends BaseScriptComponent {
         if (1 - Math.abs(hitNormal.normalize().dot(vec3.up())) < EPSILON &&
             this.rayStart.y - hitPosition.y > MIN_DISTANCE_TO_FLOOR
         ) {
-            var placeholderSubsFloor = placeholderSubs.filter((sub, index, arr) => { return sub.surfaceType == MyWorldQueryHitSurfaceTypes.Floor })
-            var triggeredSubsFloor = triggeredSubs.filter((sub, index, arr) => { return sub.surfaceType == MyWorldQueryHitSurfaceTypes.Floor })
             var lookDirection = this.camera.forward()
             var worldHitResult = new MyWorldQueryHitResult()
-            worldHitResult.handHit = handHit
+            worldHitResult.handHit = triggerByHand
             worldHitResult.triggered = false
             worldHitResult.currentHitPosition = hitPosition
             worldHitResult.currentHitRotation = quat.lookAt(lookDirection, hitNormal)
             lookDirection.y = 0
             worldHitResult.currentHitRotationParrallelToGround = quat.lookAt(lookDirection, hitNormal)
-            placeholderSubsFloor.forEach(sub => { sub.hitCallback(worldHitResult) })
-            if (triggeredSubsFloor.length > 0)
+            this.placeholderFloorSubs.get(triggerByHand).forEach(sub => { sub.hitCallback(worldHitResult) })
+            if (this.triggeredFloorSubs.get(triggerByHand).length > 0)
                 if (
                     this.primaryInteractor.previousTrigger !== InteractorTriggerType.None &&
                     this.primaryInteractor.currentTrigger === InteractorTriggerType.None
                 ) {
                     this.printDebugInEditor("WorldQuery Triggered")
                     worldHitResult.triggered = true
-                    triggeredSubsFloor.forEach(sub => { sub.hitCallback(worldHitResult) })
+                    this.triggeredFloorSubs.get(triggerByHand).forEach(sub => { sub.hitCallback(worldHitResult) })
                 }
         }
     }
@@ -163,17 +187,13 @@ export enum MyWorldQueryHitSurfaceTypes {
 
 export class MyWorldQueryHitSubscriberRegistration {
     receivePlaceholder: boolean
+    placeholderByHand: boolean
     receiveTrigger: boolean
-    handHit: boolean
+    triggerByHand: boolean
     surfaceType: MyWorldQueryHitSurfaceTypes
     subscriber: SceneObject
     hitCallback: (results: MyWorldQueryHitResult) => void
-    constructor(receivePlaceholder: boolean, receiveTrigger: boolean, handHit: boolean, subscriber: SceneObject, hitCallback: (results: MyWorldQueryHitResult) => void) {
-        this.receivePlaceholder = receivePlaceholder
-        this.receiveTrigger = receiveTrigger
-        this.handHit = handHit
-        this.subscriber = subscriber
-        this.hitCallback = hitCallback
+    constructor() {
     }
 }
 

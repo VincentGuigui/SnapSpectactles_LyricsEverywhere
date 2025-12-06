@@ -19,7 +19,13 @@ export class PlaceOnTheFloorOnce extends BaseScriptComponent {
         this.createEvent("OnStartEvent").bind(this.onStart.bind(this))
         this.createEvent("OnEnableEvent").bind(this.onEnable.bind(this))
         this.createEvent("OnDisableEvent").bind(this.onDisable.bind(this))
-        this.registration = new MyWorldQueryHitSubscriberRegistration(true, false, false, this.sceneObject, this.onHit.bind(this))
+        this.registration = new MyWorldQueryHitSubscriberRegistration()
+        this.registration.receivePlaceholder = true
+        this.registration.placeholderByHand = false
+        this.registration.receiveTrigger = false
+        this.registration.triggerByHand = false
+        this.registration.subscriber = this.sceneObject
+        this.registration.hitCallback = this.onHit.bind(this)
         this.registration.surfaceType = MyWorldQueryHitSurfaceTypes.Floor
     }
 
