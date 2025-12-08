@@ -41,16 +41,16 @@
     []
   DefaultScriptInputs:
     - objectToSpawn: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
-      printDebug: false
       transitionDuration: !<float> 2000.000000
       customSpawn: false
       spawnOnLateUpdate: false
+      printDebug: false
   ScriptTypes:
     -
       {}
   InputLines:
     - // @input SceneObject objectToSpawn
-    - // @input bool printDebug
     - // @input float transitionDuration = 2000
     - '// @input bool customSpawn {"hint":"Call to Spawn method will be done by code"}'
     - // @input bool spawnOnLateUpdate
+    - // @input bool printDebug

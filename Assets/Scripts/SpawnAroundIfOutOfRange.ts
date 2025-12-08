@@ -2,7 +2,6 @@ import { Headlock } from "SpectaclesInteractionKit.lspkg/Components/Interaction/
 import { SpawnTransform } from "./SpawnerBase";
 import { SpawnerOutOfRange } from "./SpawnerOutOfRange";
 import WorldCameraFinderProvider from "SpectaclesInteractionKit.lspkg/Providers/CameraProvider/WorldCameraFinderProvider";
-import { Billboard } from "SpectaclesInteractionKit.lspkg/Components/Interaction/Billboard/Billboard";
 
 @component
 export default class SpawnAroundIfOutOfRange extends SpawnerOutOfRange {

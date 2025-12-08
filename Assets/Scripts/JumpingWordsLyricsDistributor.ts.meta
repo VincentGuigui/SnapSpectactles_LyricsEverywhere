@@ -1,0 +1,65 @@
+- !<AssetImportMetadata/b1c9c506-0367-48da-bea3-b36cac51aba0>
+  ImportedAssetIds:
+    TypeScriptAsset: !<reference> 5cace791-71b6-481e-855a-0f0980e0bedc
+  ImporterName: TypeScriptAssetImporter
+  PrimaryAsset: !<reference> 5cace791-71b6-481e-855a-0f0980e0bedc
+  PackageType: NotAPackage
+  LegacyPackagePolicy: ~
+  ExtraData:
+    {}
+  AssetDataMap:
+    TypeScriptAsset: !<own> b2c8cb15-dbc0-4c27-92ee-40904d819cb1
+  DependentFiles:
+    []
+  ImporterSettings: !<AssetImporterSettings>
+    {}
+  CompressionSettings: !<own> 00000000-0000-0000-0000-000000000000
+- !<TypeScriptAssetData/b2c8cb15-dbc0-4c27-92ee-40904d819cb1>
+  SvgIcon: ""
+  SetupScript:
+    code: ""
+  Description: ""
+  VersionMajor: 0
+  VersionMinor: 0
+  VersionPatch: 0
+  ComponentUid: 2dc53e46-0d4b-4893-a5f3-810be5f6e7d8
+  ExportUid: 00000000-0000-0000-0000-000000000000
+  PackagePolicy: CanBeUnpacked
+  ScriptInputsHidden:
+    centeredAcrossObjects: false
+    fakeLyrics: false
+    lyricsOffset: false
+    parentObject: false
+    totalDuration: false
+    transitionDuration: false
+    withFutureLyrics: false
+    withRemainerObject: false
+  ScriptTypesHidden:
+    {}
+  ReadMe: !<reference> 00000000-0000-0000-0000-000000000000
+  DeclarationFile: !<reference> 00000000-0000-0000-0000-000000000000
+  Tags:
+    []
+  Attachments:
+    []
+  DefaultScriptInputs:
+    - fakeLyrics: ""
+      lyricsOffset: !<float> 0.000000
+      parentObject: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      withFutureLyrics: true
+      withRemainerObject: false
+      centeredAcrossObjects: false
+      transitionDuration: !<float> 2000.000000
+      totalDuration: !<float> 8000.000000
+  ScriptTypes:
+    -
+      {}
+  InputLines:
+    - // @input string fakeLyrics
+    - // @input float lyricsOffset
+    - // @input SceneObject parentObject
+    - // @input bool withFutureLyrics = true
+    - // @input bool withRemainerObject
+    - // @input bool centeredAcrossObjects
+    - // @input float transitionDuration = 2000
+    - // @input float totalDuration = 8000

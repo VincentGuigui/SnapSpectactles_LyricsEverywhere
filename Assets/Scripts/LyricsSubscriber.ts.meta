@@ -26,6 +26,7 @@
   ExportUid: 00000000-0000-0000-0000-000000000000
   PackagePolicy: CanBeUnpacked
   ScriptInputsHidden:
+    fakeLyrics: false
     lyricsOffset: false
   ScriptTypesHidden:
     {}
@@ -37,8 +38,10 @@
     []
   DefaultScriptInputs:
     - lyricsOffset: !<float> 0.000000
+      fakeLyrics: ""
   ScriptTypes:
     -
       {}
   InputLines:
     - // @input float lyricsOffset
+    - // @input string fakeLyrics

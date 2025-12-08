@@ -119,11 +119,13 @@
   ScriptAsset: !<reference> 413c2595-c8d6-4ea4-acb5-5c673e6c64f3
   ScriptInputsDefault:
     lyricsOffset: true
+    fakeLyrics: true
   ScriptTypesDefault:
     {}
   ScriptInputs:
     "":
       lyricsOffset: !<float> 0.000000
+      fakeLyrics: ""
   ScriptTypes:
     "":
       {}

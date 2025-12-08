@@ -1,4 +1,4 @@
-import { MyWorldQueryHitTest, MyWorldQueryHitResult, MyWorldQueryHitSubscriberRegistration, MyWorldQueryHitSurfaceTypes } from "./MyWorldQueryHitTest"
+import { HAND, HEAD, MyWorldQueryHitTest, MyWorldQueryHitResult, MyWorldQueryHitSubscriberRegistration, MyWorldQueryHitSurfaceTypes } from "./MyWorldQueryHitTest"
 import { SpawnerBase, SpawnTransform } from "./SpawnerBase"
 import WorldCameraFinderProvider from "SpectaclesInteractionKit.lspkg/Providers/CameraProvider/WorldCameraFinderProvider"
 
@@ -8,7 +8,6 @@ export class PlaceOnTheFloorIfTrigger extends SpawnerBase {
     @input
     worldHitTest: MyWorldQueryHitTest
     registration: MyWorldQueryHitSubscriberRegistration
-    latestQueryResult: MyWorldQueryHitResult
     camera = WorldCameraFinderProvider.getInstance();
     @input
     @allowUndefined
@@ -20,9 +19,9 @@ export class PlaceOnTheFloorIfTrigger extends SpawnerBase {
         this.createEvent("OnDisableEvent").bind(this.onDisable.bind(this))
         this.registration = new MyWorldQueryHitSubscriberRegistration()
         this.registration.receivePlaceholder = true
-        this.registration.placeholderByHand = false
+        this.registration.placeholderByHandOrHead = false
         this.registration.receiveTrigger = true
-        this.registration.triggerByHand = true
+        this.registration.triggerByHandOrHead = true
         this.registration.subscriber = this.sceneObject
         this.registration.hitCallback = this.onHit.bind(this)
         this.registration.surfaceType = MyWorldQueryHitSurfaceTypes.Floor
@@ -44,24 +43,25 @@ export class PlaceOnTheFloorIfTrigger extends SpawnerBase {
     }
 
     onHit(results: MyWorldQueryHitResult) {
-        this.latestQueryResult = results
         if (results == null) {
             if (this.placeholder) {
                 this.placeholder.enabled = false
             }
         } else {
+            // this.printDebugInEditor("Receive", results.handOrHead ? "HAND" : "HEAD", results.currentHitPosition)
             if (results.triggered) {
                 this.placeholder.enabled = false
                 if (this.objectToSpawn.enabled == false) {
                     // Called when a trigger ends
-                    this.spawnObject()
+                    this.spawnObject(results)
                     this.afterPlacement()
                 }
             }
-            if (this.placeholder) {
+            if (this.placeholder && results.handOrHead == this.registration.placeholderByHandOrHead) {
+                // this.printDebugInEditor("placeholder", results.handOrHead, results.currentHitPosition)
                 this.placeholder.enabled = this.objectToSpawn.enabled == false
                 if (this.placeholder.enabled) {
-                    this.spawnObject()
+                    this.spawnObject(results)
                 }
             }
         }
@@ -77,16 +77,18 @@ export class PlaceOnTheFloorIfTrigger extends SpawnerBase {
         return (cameraLookAt.angleTo(vec3.down()) > 145 * MathUtils.DegToRad)
     }
 
-    computeSpawnTransformation(): SpawnTransform {
-        return new SpawnTransform(this.latestQueryResult.currentHitPosition, this.latestQueryResult.currentHitRotationParrallelToGround)
+    computeSpawnTransformation(context): SpawnTransform {
+        var results = context as MyWorldQueryHitResult
+        console.log("results", results.handOrHead, results.currentHitPosition)
+        return new SpawnTransform(results.currentHitPosition, results.currentHitRotationParrallelToGround)
     }
 
     spawnObjectActionImmediate(tr: SpawnTransform, onComplete: () => void) {
         var objectToSpawn = this.getObjectToSpawn()
-        this.printDebugInEditor("spawnObjectActionImmediate", objectToSpawn.name)
         var objTr = objectToSpawn.getTransform()
         objTr.setWorldPosition(tr.position)
         objTr.setWorldRotation(tr.rotation)
+        onComplete()
     }
 
     afterPlacement() {

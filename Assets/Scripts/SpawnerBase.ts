@@ -5,8 +5,6 @@ export class SpawnerBase extends BaseScriptComponent {
     @input
     objectToSpawn: SceneObject
     @input
-    printDebug: boolean = false
-    @input
     transitionDuration: number = 2000
     @input
     @hint("Call to Spawn method will be done by code")
@@ -18,7 +16,9 @@ export class SpawnerBase extends BaseScriptComponent {
     mustCallSpawnOnLateUpdate = false
     nextTransformation: SpawnTransform
 
-    printDebugInEditor(...data: any[]) {
+    @input
+    printDebug: boolean = false
+        printDebugInEditor(...data: any[]) {
         if (this.printDebug && global.deviceInfoSystem.isEditor)
             console.log(data)
     }
@@ -46,7 +46,7 @@ export class SpawnerBase extends BaseScriptComponent {
     }
 
     spawnTrigger(): boolean {
-        this.printDebugInEditor("spawntrigger")
+        this.printDebugInEditor("spawntrigger", this.sceneObject.name)
         return true
     }
 
@@ -58,10 +58,10 @@ export class SpawnerBase extends BaseScriptComponent {
             this.spawnObjectActionImmediate(this.nextTransformation, this.onSpawnComplete.bind(this))
     }
 
-    spawnObject() {
-        this.printDebugInEditor("spawnObject")
+    spawnObject(context = null) {
+        this.printDebugInEditor("spawnObject", this.sceneObject.name)
         this.isSpawning = true
-        this.nextTransformation = this.computeSpawnTransformation()
+        this.nextTransformation = this.computeSpawnTransformation(context)
         if (this.spawnOnLateUpdate) {
             this.mustCallSpawnOnLateUpdate = true
         }
@@ -72,7 +72,7 @@ export class SpawnerBase extends BaseScriptComponent {
         this.afterSpawnObjectAction()
     }
 
-    computeSpawnTransformation(): SpawnTransform {
+    computeSpawnTransformation(context = null): SpawnTransform {
         var thisPosition = this.getObjectToSpawn().getTransform().getWorldPosition()
         var thisRotation = this.getObjectToSpawn().getTransform().getWorldRotation()
         this.nextTransformation = new SpawnTransform(thisPosition, thisRotation)

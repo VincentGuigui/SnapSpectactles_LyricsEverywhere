@@ -7,6 +7,9 @@ export class LyricsSubscriber extends BaseScriptComponent {
     @input
     lyricsOffset: 0
 
+    @input
+    fakeLyrics = ""
+
     onAwake() {
 
     }
@@ -28,6 +31,8 @@ export class LyricsSubscriber extends BaseScriptComponent {
     }
 
     protected findLyric(lyrics: LyricsData, current: number): string {
+        if (this.fakeLyrics != "") 
+            return this.fakeLyrics
         if (lyrics == null || current == LYRICS_STOP) return ""
         if (current == LYRICS_WAITING) return "..."
         current = current + this.lyricsOffset

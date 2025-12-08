@@ -6,8 +6,8 @@ const WorldQueryModule = require("LensStudio:WorldQueryModule")
 const SIK = require("SpectaclesInteractionKit.lspkg/SIK").SIK
 const EPSILON = 0.01
 const MIN_DISTANCE_TO_FLOOR = 100;
-const HAND = true
-const HEAD = false
+export const HAND = true
+export const HEAD = false
 
 @component
 export class MyWorldQueryHitTest extends BaseScriptComponent {
@@ -23,13 +23,12 @@ export class MyWorldQueryHitTest extends BaseScriptComponent {
     private primaryInteractor
     private hitTestSession: HitTestSession
     private camera = WorldCameraFinderProvider.getInstance()
-    private rayStart: vec3
+    private rayStart: Map<boolean, vec3> = new Map()
     private subs: Map<boolean, MyWorldQueryHitSubscriberRegistration[]> = new Map()
     private placeholderSubs: Map<boolean, MyWorldQueryHitSubscriberRegistration[]> = new Map()
     private placeholderFloorSubs: Map<boolean, MyWorldQueryHitSubscriberRegistration[]> = new Map()
     private triggeredSubs: Map<boolean, MyWorldQueryHitSubscriberRegistration[]> = new Map()
     private triggeredFloorSubs: Map<boolean, MyWorldQueryHitSubscriberRegistration[]> = new Map()
-    private headPlaceholderFloorSubs: Map<boolean, MyWorldQueryHitSubscriberRegistration[]> = new Map()
     public currentHitPosition: vec3
     public currentHitRotation: quat
     public currentHitRotationParrallelToGround: quat
@@ -68,12 +67,18 @@ export class MyWorldQueryHitTest extends BaseScriptComponent {
 
     private buildSubsCache() {
         [HAND, HEAD].forEach(handOrHead => {
-            this.subs.set(handOrHead, this.subscribers.filter((sub) => { return (sub.receiveTrigger && sub.triggerByHand == handOrHead) || (sub.receivePlaceholder && sub.placeholderByHand == handOrHead) }))
-            this.placeholderSubs.set(handOrHead, this.subs.get(handOrHead).filter((sub, index, arr) => { return sub.receivePlaceholder }))
+            this.subs.set(handOrHead, this.subscribers.filter((sub) => {
+                return (sub.receivePlaceholder && sub.placeholderByHandOrHead == handOrHead) || (sub.receiveTrigger && sub.triggerByHandOrHead == handOrHead)
+            }))
+            this.placeholderSubs.set(handOrHead, this.subs.get(handOrHead).filter((sub, index, arr) => { return sub.receivePlaceholder && sub.placeholderByHandOrHead == handOrHead }))
             this.placeholderFloorSubs.set(handOrHead, this.placeholderSubs.get(handOrHead).filter((sub, index, arr) => { return sub.surfaceType == MyWorldQueryHitSurfaceTypes.Floor }))
-            this.triggeredSubs.set(handOrHead, this.subs.get(handOrHead).filter((sub, index, arr) => { return sub.receiveTrigger }))
+            this.triggeredSubs.set(handOrHead, this.subs.get(handOrHead).filter((sub, index, arr) => { return sub.receiveTrigger && sub.triggerByHandOrHead == handOrHead }))
             this.triggeredFloorSubs.set(handOrHead, this.triggeredSubs.get(handOrHead).filter((sub, index, arr) => { return sub.surfaceType == MyWorldQueryHitSurfaceTypes.Floor }))
         });
+
+        [HAND, HEAD].forEach(hH => {
+            this.printDebugInEditor(hH ? "Hand" : "Head", this.subs.get(hH).length, "pl", this.placeholderSubs.get(hH).length, "fl", this.placeholderFloorSubs.get(hH).length, "tr", this.triggeredFloorSubs.get(hH).length)
+        })
     }
 
     private removeFromArray(arr: MyWorldQueryHitSubscriberRegistration[], element: MyWorldQueryHitSubscriberRegistration) {
@@ -116,65 +121,70 @@ export class MyWorldQueryHitTest extends BaseScriptComponent {
                 this.primaryInteractor.isActive() &&
                 this.primaryInteractor.isTargeting()
             ) {
-                this.rayStart = new vec3(this.primaryInteractor.startPoint.x, this.primaryInteractor.startPoint.y, this.primaryInteractor.startPoint.z + 30)
+                this.rayStart.set(HAND, new vec3(this.primaryInteractor.startPoint.x, this.primaryInteractor.startPoint.y, this.primaryInteractor.startPoint.z + 30))
                 const rayEnd = this.primaryInteractor.endPoint
-                this.hitTestSession.hitTest(this.rayStart, rayEnd, this.onHandHitTestResult.bind(this))
+                this.hitTestSession.hitTest(this.rayStart.get(HAND), rayEnd, this.onHandHitTestResult.bind(this))
             }
             else {
                 this.onHandHitTestResult(null)
             }
         }
-        else {
-            if (this.subs.get(HEAD).length > 0) {
-                this.rayStart = this.camera.getWorldPosition()
-                const rayEnd = this.camera.getForwardPosition(300, false)
-                this.hitTestSession.hitTest(this.rayStart, rayEnd, this.onGazeHitTestResult.bind(this))
-            }
+        if (this.subs.get(HEAD).length > 0) {
+            this.rayStart.set(HEAD, this.camera.getWorldPosition())
+            const rayEnd = this.camera.getForwardPosition(300, false)
+            this.hitTestSession.hitTest(this.rayStart.get(HEAD), rayEnd, this.onHeadHitTestResult.bind(this))
         }
     }
 
-    onHitTestResultCore(results: WorldQueryHitTestResult, triggerByHand: boolean) {
+    onHitTestResultCore(results: WorldQueryHitTestResult, handOrHead: boolean) {
         if (results == null) {
-            this.subs.get(triggerByHand).forEach(sub => { sub.hitCallback(null) })
+            this.subs.get(handOrHead).forEach(sub => { sub.hitCallback(null) })
             return
         }
 
+        this.printDebugInEditor("Hit", handOrHead ? "HAND" : "HEAD", this.rayStart.get(handOrHead), results.position)
+
         // get hit information
-        const hitPosition: vec3 = results.position
         const hitNormal: vec3 = results.normal
-        // identifying the direction the object should look at based on the normal of the hit location.
+
+        var worldHitResult = new MyWorldQueryHitResult()
+        worldHitResult.handOrHead = handOrHead
+        worldHitResult.currentHitPosition = results.position
 
         // hit horizontal plane
         if (1 - Math.abs(hitNormal.normalize().dot(vec3.up())) < EPSILON &&
-            this.rayStart.y - hitPosition.y > MIN_DISTANCE_TO_FLOOR
+            this.rayStart.get(handOrHead).y - worldHitResult.currentHitPosition.y > MIN_DISTANCE_TO_FLOOR
         ) {
             var lookDirection = this.camera.forward()
-            var worldHitResult = new MyWorldQueryHitResult()
-            worldHitResult.handHit = triggerByHand
-            worldHitResult.triggered = false
-            worldHitResult.currentHitPosition = hitPosition
             worldHitResult.currentHitRotation = quat.lookAt(lookDirection, hitNormal)
+            worldHitResult.triggered = false
             lookDirection.y = 0
             worldHitResult.currentHitRotationParrallelToGround = quat.lookAt(lookDirection, hitNormal)
-            this.placeholderFloorSubs.get(triggerByHand).forEach(sub => { sub.hitCallback(worldHitResult) })
-            if (this.triggeredFloorSubs.get(triggerByHand).length > 0)
-                if (
-                    this.primaryInteractor.previousTrigger !== InteractorTriggerType.None &&
-                    this.primaryInteractor.currentTrigger === InteractorTriggerType.None
-                ) {
-                    this.printDebugInEditor("WorldQuery Triggered")
-                    worldHitResult.triggered = true
-                    this.triggeredFloorSubs.get(triggerByHand).forEach(sub => { sub.hitCallback(worldHitResult) })
+            this.placeholderFloorSubs.get(handOrHead).forEach(sub => {
+                // this.printDebugInEditor("Send to pl_fl", handOrHead ? "HAND" : "HEAD", worldHitResult.currentHitPosition, sub.subscriber.name)
+                sub.hitCallback(worldHitResult)
+            })
+            if (this.triggeredFloorSubs.get(handOrHead).length > 0)
+                if (handOrHead == HAND) {
+                    if (this.primaryInteractor.previousTrigger !== InteractorTriggerType.None &&
+                        this.primaryInteractor.currentTrigger === InteractorTriggerType.None
+                    ) {
+                        // this.printDebugInEditor("Send to tr_fl", this.triggeredFloorSubs.get(handOrHead).length)
+                        worldHitResult.triggered = true
+                        this.triggeredFloorSubs.get(handOrHead).forEach(sub => { sub.hitCallback(worldHitResult) })
+                    }
+                } else {
+                    //triggered by head : To be defined
                 }
         }
     }
 
-    onGazeHitTestResult(results: WorldQueryHitTestResult) {
-        this.onHitTestResultCore(results, false);
+    onHandHitTestResult(results: WorldQueryHitTestResult) {
+        this.onHitTestResultCore(results, HAND);
     }
 
-    onHandHitTestResult(results: WorldQueryHitTestResult) {
-        this.onHitTestResultCore(results, true);
+    onHeadHitTestResult(results: WorldQueryHitTestResult) {
+        this.onHitTestResultCore(results, HEAD);
     }
 }
 
@@ -187,9 +197,9 @@ export enum MyWorldQueryHitSurfaceTypes {
 
 export class MyWorldQueryHitSubscriberRegistration {
     receivePlaceholder: boolean
-    placeholderByHand: boolean
+    placeholderByHandOrHead: boolean
     receiveTrigger: boolean
-    triggerByHand: boolean
+    triggerByHandOrHead: boolean
     surfaceType: MyWorldQueryHitSurfaceTypes
     subscriber: SceneObject
     hitCallback: (results: MyWorldQueryHitResult) => void
@@ -200,7 +210,7 @@ export class MyWorldQueryHitSubscriberRegistration {
 
 export class MyWorldQueryHitResult {
     rawResults: MyWorldQueryHitResult
-    handHit: boolean
+    handOrHead: boolean
     triggered: boolean
     currentHitPosition: vec3
     currentHitRotation: quat

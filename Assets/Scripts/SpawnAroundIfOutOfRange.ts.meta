@@ -54,9 +54,9 @@
     []
   DefaultScriptInputs:
     - objectToSpawn: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
-      printDebug: false
       transitionDuration: !<float> 2000.000000
       customSpawn: false
+      printDebug: false
       referenceObject: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
       changeDistance: true
       distanceRange: !<Vec2> {x: 0.000000, y: 0.000000}
@@ -76,9 +76,9 @@
       {}
   InputLines:
     - // @input SceneObject objectToSpawn
-    - // @input bool printDebug
     - // @input float transitionDuration = 2000
     - '// @input bool customSpawn {"hint":"Call to Spawn method will be done by code"}'
+    - // @input bool printDebug
     - // @input SceneObject referenceObject
     - '// @input bool changeDistance = true {"hint":"Relative to referenceObject position"}'
     - '// @input vec2 distanceRange = {100,100} {"showIf":"changeDistance", "showIfValue":true}'

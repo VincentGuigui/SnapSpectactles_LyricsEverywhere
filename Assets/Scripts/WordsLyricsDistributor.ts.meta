@@ -1,0 +1,59 @@
+- !<AssetImportMetadata/5a3e2786-1623-422a-8cdf-1e00391747f7>
+  ImportedAssetIds:
+    TypeScriptAsset: !<reference> 30d07acd-379d-48ee-91b8-eeefcd7edb75
+  ImporterName: TypeScriptAssetImporter
+  PrimaryAsset: !<reference> 30d07acd-379d-48ee-91b8-eeefcd7edb75
+  PackageType: NotAPackage
+  LegacyPackagePolicy: ~
+  ExtraData:
+    {}
+  AssetDataMap:
+    TypeScriptAsset: !<own> f4286300-0eba-4bcf-8162-34943d5f9654
+  DependentFiles:
+    []
+  ImporterSettings: !<AssetImporterSettings>
+    {}
+  CompressionSettings: !<own> 00000000-0000-0000-0000-000000000000
+- !<TypeScriptAssetData/f4286300-0eba-4bcf-8162-34943d5f9654>
+  SvgIcon: ""
+  SetupScript:
+    code: ""
+  Description: ""
+  VersionMajor: 0
+  VersionMinor: 0
+  VersionPatch: 0
+  ComponentUid: 8f865188-206f-4c99-b477-fc3e30db0ba0
+  ExportUid: 00000000-0000-0000-0000-000000000000
+  PackagePolicy: CanBeUnpacked
+  ScriptInputsHidden:
+    centeredAcrossObjects: false
+    fakeLyrics: false
+    lyricsOffset: false
+    parentObject: false
+    withFutureLyrics: false
+    withRemainerObject: false
+  ScriptTypesHidden:
+    {}
+  ReadMe: !<reference> 00000000-0000-0000-0000-000000000000
+  DeclarationFile: !<reference> 00000000-0000-0000-0000-000000000000
+  Tags:
+    []
+  Attachments:
+    []
+  DefaultScriptInputs:
+    - fakeLyrics: ""
+      lyricsOffset: !<float> 0.000000
+      parentObject: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      withFutureLyrics: true
+      withRemainerObject: false
+      centeredAcrossObjects: false
+  ScriptTypes:
+    -
+      {}
+  InputLines:
+    - // @input string fakeLyrics
+    - // @input float lyricsOffset
+    - // @input SceneObject parentObject
+    - // @input bool withFutureLyrics = true
+    - // @input bool withRemainerObject
+    - // @input bool centeredAcrossObjects

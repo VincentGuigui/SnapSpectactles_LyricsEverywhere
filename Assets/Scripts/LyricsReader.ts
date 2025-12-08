@@ -3,7 +3,7 @@ import { LyricsData } from './LyricsData'
 import { LyricsSubscriber } from './LyricsSubscriber'
 import { Song } from './Song'
 import { findAllScriptComponentsInChildren, findScriptComponentInChildren, findScriptComponentInSelfOrParents } from "SpectaclesInteractionKit.lspkg/Utils/SceneObjectUtils"
-import { LyricsDistributor } from './LyricsDistributor'
+import { WordsLyricsDistributor } from './WordsLyricsDistributor'
 import { LYRICS_STOP, LYRICS_STOP_DIRTY, LYRICS_WAITING, LYRICS_PAUSE } from './LyricsStates'
 
 @component
@@ -29,8 +29,6 @@ export class LyricsReader extends BaseScriptComponent {
     @input
     private Sky: SceneObject = undefined
 
-    private camera = WorldCameraFinderProvider.getInstance();
-
     @input
     lyricsLocations: SceneObject[]
     private _lyricsSubscribers: LyricsSubscriber[] = []
@@ -40,7 +38,15 @@ export class LyricsReader extends BaseScriptComponent {
     private _currentLine = LYRICS_STOP_DIRTY
     private _headAlreadyVisible = false
     private _state = "stopped";
-    private _floorDistributor: LyricsDistributor
+    private _floorDistributor: WordsLyricsDistributor
+    private camera = WorldCameraFinderProvider.getInstance();
+
+    @input
+    printDebug: boolean = false
+    printDebugInEditor(...data: any[]) {
+        if (this.printDebug && global.deviceInfoSystem.isEditor)
+            console.log(data)
+    }
 
     onAwake() {
         this.textTemplate = this.sceneObject.getComponent("Component.Text")
@@ -50,22 +56,23 @@ export class LyricsReader extends BaseScriptComponent {
 
     onStart() {
         this.registerSubscribers();
-        this._floorDistributor = findScriptComponentInChildren(this.Floor, LyricsDistributor, 50)
+        this._floorDistributor = findScriptComponentInChildren(this.Floor, WordsLyricsDistributor, 50)
     }
 
     setSong(song: Song) {
         this._lyrics = song.lyrics
-        console.log("LyricsData", song.title, song.lyrics.timed.line.length, "lines")
+        this.printDebugInEditor("LyricsData", song.title, song.lyrics.timed.line.length, "lines")
     }
 
     registerSubscribers() {
         this.lyricsLocations.forEach(location => {
             var subs = findAllScriptComponentsInChildren(location, LyricsSubscriber)
             subs.forEach(sub => {
-                console.log("Register LyricsSub", sub.getSceneObject().name)
+                this.printDebugInEditor("Register LyricsSub", sub.getSceneObject().name)
                 this._lyricsSubscribers.push(sub)
             });
         })
+        this.propagateLyrics(LYRICS_STOP)
     }
 
     onUpdate() {
@@ -103,24 +110,6 @@ export class LyricsReader extends BaseScriptComponent {
         if (this._floorDistributor.isEnabledInHierarchy) {
             this._floorDistributor.setLyricsOnce(this._lyrics, this.getLyricsIndex(), this.textTemplate)
         }
-
-        // SIDEWALK
-        // console.log("spawn rabbit ?", cameraLookAt.angleTo(vec3.down())*MathUtils.RadToDeg, cameraLookAt.angleTo(vec3.right())*MathUtils.RadToDeg)
-        // if (cameraLookAt.angleTo(vec3.down()) > 40 * MathUtils.DegToRad
-        //     && cameraLookAt.angleTo(vec3.down()) < 50 * MathUtils.DegToRad
-        //     && cameraLookAt.angleTo(vec3.right()) > 30 * MathUtils.DegToRad
-        //     && cameraLookAt.angleTo(vec3.right()) < 40 * MathUtils.DegToRad) {
-        //     console.log("Spawn Rabbit")
-        //     this.Sidewalk.enabled = true
-        //     // children will spawn using WorldQueryHitTest
-        // }
-        // if (this.Sidewalk.enabled) {
-        //     if (!this.camera.getComponent().isSphereVisible(this.Sidewalk.children[0].getTransform().getWorldPosition().add(vec3.up().uniformScale(50)), 150)) {
-        //         console.log("Unspawn Rabbit")
-        //         this.Sidewalk.children[0].enabled = false
-        //         this.Sidewalk.enabled = false
-        //     }
-        // }
 
         // PROPAGATION
         if (this._state == "playing") {
