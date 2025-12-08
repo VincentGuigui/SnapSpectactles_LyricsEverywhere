@@ -3390,7 +3390,7 @@
   Enabled: true
   Layers: 1
   LocalTransform: !<TransformEntity>
-    Position: {x: -0.000183, y: 0.000051, z: -291.489716}
+    Position: {x: -0.000183, y: 0.000051, z: -291.500000}
     Rotation: {x: 0.000005, y: -0.000003, z: -90.000023}
     Scale: {x: 120.000061, y: 40.000031, z: 600.010193}
     HasSegmentScaleCompensation: false
@@ -3918,6 +3918,7 @@
     HasSegmentScaleCompensation: false
   Children:
     - !<own> e8cec5c1-8c7c-4e79-8100-3a195174b2d6
+    - !<own> 873653ab-1ee0-4028-a0a5-699cc15f9452
     - !<own> aba21b48-3f47-4135-aa6b-64909b82d678
   Components:
     []
@@ -5455,6 +5456,22 @@
   ScriptTypes:
     "":
       {}
+- !<SceneObject/873653ab-1ee0-4028-a0a5-699cc15f9452>
+  PrefabRemaps:
+    []
+  Name: LipSyncRed
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 0.000000, y: 7.008636, z: 13.771679}
+    Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Scale: {x: 20.000000, y: 20.000000, z: 20.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    []
+  Components:
+    - !<own> aa3ca86c-8c19-4520-b519-153e40a77f87
+    - !<own> c4054e40-625f-406a-bf5d-3203278b8d8c
 - !<Text/883e861a-667f-447d-9279-154d1b0c0888>
   PrefabRemaps:
     []
@@ -6957,6 +6974,25 @@
     - !<own> 899ee01f-4940-4027-bc08-fd46e332b3b2
   Components:
     - !<own> f715546d-a5ce-4b5c-9f60-19b2ff98fe35
+- !<Image/aa3ca86c-8c19-4520-b519-153e40a77f87>
+  PrefabRemaps:
+    []
+  Name: Image
+  Enabled: true
+  RenderOrder: 0
+  StretchMode: Fit
+  VerticalAlignment: Center
+  HorizontalAlignment: Center
+  MeshShadowMode: None
+  ShadowColor: {x: 1.000000, y: 1.000000, z: 1.000000, w: 1.000000}
+  ShadowDensity: 1.000000
+  Materials:
+    - !<reference> defebf60-5109-49fa-b1c0-35d65c95a93a
+  FlipX: false
+  FlipY: false
+  RotationAngle: 0
+  Pivot: {x: 0.000000, y: 0.000000}
+  ExtentsTarget: !<reference> 00000000-0000-0000-0000-000000000000
 - !<Image/ab553d30-8867-4229-92b9-ce81486df6bc>
   PrefabRemaps:
     []
@@ -6998,7 +7034,7 @@
   Enabled: true
   Layers: 1
   LocalTransform: !<TransformEntity>
-    Position: {x: 0.000000, y: 9.926926, z: 13.829544}
+    Position: {x: 0.000000, y: 12.543098, z: 13.881371}
     Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
     Scale: {x: 30.000000, y: 30.000000, z: 30.000000}
     HasSegmentScaleCompensation: false
@@ -7913,6 +7949,34 @@
   BlendNormals: false
   BlendShapes:
     {}
+- !<ScriptComponent/c4054e40-625f-406a-bf5d-3203278b8d8c>
+  PrefabRemaps:
+    []
+  Name: LipSyncLyricsDistributor
+  Enabled: true
+  ScriptAsset: !<reference> 87b294f9-e64a-4e43-bf8e-363c18e92f51
+  ScriptInputsDefault:
+    fakeLyrics: true
+    lyricsOffset: true
+    withFutureLyrics: true
+    withRemainerObject: true
+    centeredAcrossObjects: true
+    autoPlay: true
+  ScriptTypesDefault:
+    {}
+  ScriptInputs:
+    "":
+      fakeLyrics: ""
+      lyricsOffset: !<float> 0.000000
+      parentObject: !<reference.SceneObject> 873653ab-1ee0-4028-a0a5-699cc15f9452
+      withFutureLyrics: true
+      withRemainerObject: false
+      centeredAcrossObjects: false
+      autoPlay: true
+      loop: !<float> -1.000000
+  ScriptTypes:
+    "":
+      {}
 - !<ScriptComponent/c4d2e13c-24c3-4af1-a756-8a7d07dd8184>
   PrefabRemaps:
     []
@@ -9455,7 +9519,7 @@
     LetterSpacing: 0.000000
     LineSpacing: 1.000000
     CapitalizationOverride: None
-  DepthTest: false
+  DepthTest: true
   TwoSided: false
 - !<ScriptComponent/f715546d-a5ce-4b5c-9f60-19b2ff98fe35>
   PrefabRemaps:
@@ -9716,7 +9780,7 @@
   Enabled: true
   Layers: 1
   LocalTransform: !<TransformEntity>
-    Position: {x: -0.000061, y: 0.000000, z: -291.489532}
+    Position: {x: 5.367676, y: 0.000000, z: -291.499878}
     Rotation: {x: 0.000000, y: 90.000000, z: 0.000000}
     Scale: {x: 12.000000, y: 11.999994, z: 12.000002}
     HasSegmentScaleCompensation: false

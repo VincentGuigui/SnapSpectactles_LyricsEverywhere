@@ -62,7 +62,6 @@ export class WordsLyricsDistributor extends LyricsSubscriber {
         var skipStart = 0
         var skipEnd = 0
         var diff = this.lyricsText.length  - wordsToDistribute.length
-        console.log("diff", this.lyricsText.length, wordsToDistribute.length, diff)
         if (diff > 0) {
             if (this.centeredAcrossObjects) {
                 if (diff % 2 == 0) {
@@ -77,14 +76,11 @@ export class WordsLyricsDistributor extends LyricsSubscriber {
                 skipEnd = this.lyricsText.length - wordsToDistribute.length
             }
         }
-        console.log("skip", skipStart, skipEnd)
         for (let i = 0; i < skipStart; i++) {
-            console.log(i)
             this.lyricsText[i].textFill = template.textFill
             this.lyricsText[i].text = '';
         }
         for (let i = skipStart; i < this.lyricsText.length - skipEnd; i++) {
-            console.log(i, this.lyricsText.length)
             this.lyricsText[i].textFill = template.textFill
             if (i - skipStart < wordsToDistribute.length)
                 this.lyricsText[i].text = wordsToDistribute[i - skipStart];
@@ -92,7 +88,6 @@ export class WordsLyricsDistributor extends LyricsSubscriber {
                 this.lyricsText[i].text = '';
         }
         for (let i = this.lyricsText.length - skipEnd; i < this.lyricsText.length; i++) {
-            console.log(i)
             this.lyricsText[i].textFill = template.textFill
             this.lyricsText[i].text = '';
         }

@@ -5,8 +5,8 @@
 - !<PassInfo/a5d5e992-320a-443d-996a-6a15c1f7a590>
   CachedProperties:
     []
-  DepthWrite: false
-  DepthTest: false
+  DepthWrite: true
+  DepthTest: true
   DepthFunction: LessEqual
   TwoSided: false
   ColorMask: {x: true, y: true, z: true, w: true}
